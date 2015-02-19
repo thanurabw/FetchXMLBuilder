@@ -18,7 +18,7 @@
             $.ajax({
                 url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/releases',
                 success: function(data) {
-                    $("a#current-version span").text("Get latest version " + data[0].tag_name + " (downloaded " + data[0].assets[0].download_count + " times)");
+                    $("a#current-version span").text("Get FXB " + data[0].tag_name + " (" + data[0].assets[0].download_count + " downloads)");
                     $("a#current-version").attr('href', data[0].assets[0].browser_download_url);
                 }
             });

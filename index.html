@@ -19,8 +19,9 @@
                 url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/releases/latest',
                 success: function (data) {
                     if (data.assets.length > 0) {
+                        var date = new Date(data.published_at);
                         $("#latest-version span").text(data.tag_name);
-                        $("#latest-published span").text(data.published_at);
+                        $("#latest-published span").text(date.toGMTString());
                         $("#latest-downloads span").text(data.assets[0].download_count);
                         $("#latest-download span").text("Download FXB " + data.tag_name);
                         $("#latest-download").attr('href', data.assets[0].browser_download_url);
@@ -66,7 +67,7 @@
                         <h1>
                             <a id="fetchxml-builder-for-xrmtoolbox" class="anchor" href="#fetchxml-builder-for-xrmtoolbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>FetchXML Builder for XrmToolBox
                         </h1>
-                        <div id="latest">
+                        <div>
                             <table>
                                 <tr>
                                     <th>Version</th>

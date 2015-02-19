@@ -21,7 +21,7 @@
                     if (data.assets.length > 0) {
                         var date = new Date(data.published_at);
                         $("#latest-version span").text(data.tag_name);
-                        $("#latest-published span").text(date.toGMTString());
+                        $("#latest-published span").text(date.toFormattedString('yyyy-mm-dd'));
                         $("#latest-downloads span").text(data.assets[0].download_count);
                         $("#latest-download span").text("Download FXB " + data.tag_name);
                         $("#latest-download").attr('href', data.assets[0].browser_download_url);
@@ -34,7 +34,44 @@
                     }
                 }
             });
-});
+        });
+        Date.prototype.toFormattedString = function (format) {
+            /// <summary>
+            /// Formats date string dd (date), mm (month), yyyy (year), MM (min), hh (hour), ss (seconds), ms (millisec), APM (AM/PM)
+            /// </summary>
+            /// <param name="format"></param>
+            /// <returns type=""></returns>
+            var d = this;
+            var f = "";
+            f = f + format.replace(/dd|mm|yyyy|MM|hh|ss|ms|APM|\s|\/|\-|,|\./ig, function match() {
+                switch (arguments[0]) {
+                    case "dd":
+                        var dd = d.getDate();
+                        return (dd < 10) ? "0" + dd : dd;
+                    case "mm":
+                        var mm = d.getMonth() + 1;
+                        return (mm < 10) ? "0" + mm : mm;
+                    case "yyyy": return d.getFullYear();
+                    case "hh":
+                        var hh = d.getHours();
+                        return (hh < 10) ? "0" + hh : hh;
+                    case "MM":
+                        var MM = d.getMinutes();
+                        return (MM < 10) ? "0" + MM : MM;
+                    case "ss":
+                        var ss = d.getSeconds();
+                        return (ss < 10) ? "0" + ss : ss;
+                    case "ms": return d.getMilliseconds();
+                    case "APM":
+                        var apm = d.getHours();
+                        return (apm < 12) ? "AM" : "PM";
+                    default: return arguments[0];
+                }
+            } // end match function
+            ); // end format.replace
+            return f;
+        };
+
 </script>
 <style type="text/css">
     .auto-style1 {
@@ -58,7 +95,6 @@
                 <div id="main" role="main">
                     <div class="download-bar">
                         <div class="inner">
-                            <a href="https://github.com/Cinteros/FetchXMLBuilder/releases" class="download-button cint"><span>All Releases</span></a>
                             <a href="https://github.com/Cinteros/FetchXMLBuilder" class="code">View on GitHub</a>
                         </div>
                         <span class="blc"></span><span class="trc"></span>
@@ -72,6 +108,7 @@
                                 <tr>
                                     <th>Version</th>
                                     <td id="latest-version"><span>Loading version...</span></td>
+                                    <td rowspan="2"><a class="download-button zip" id="latest-download"><span>Download FXB now!</span></a></td>
                                 </tr>
                                 <tr>
                                     <th>Published</th>
@@ -80,11 +117,7 @@
                                 <tr>
                                     <th>Downloads</th>
                                     <td id="latest-downloads"><span>Loading download count...</span></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <a class="download-button zip" id="latest-download"><span>Download FXB now!</span></a>
-                                    </td>
+                                    <td><a href="https://github.com/Cinteros/FetchXMLBuilder/releases" class="download-button cint"><span>View All Releases</span></a></td>
                                 </tr>
                             </table>
                         </div>

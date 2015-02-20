@@ -18,7 +18,6 @@
             $.ajax({
                 url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/releases/latest',
                 success: function (data) {
-                    alert(data);
                     if (data && data.assets && data.assets.length > 0) {
                         var count = data.assets[0].download_count;
                         var version = data.tag_name;

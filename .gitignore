@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/FetchXmlBuilder/bin/Debug
+/FetchXmlBuilder/obj/Debug
+*.user
+/XmlEditorUtils/bin/Debug
+/XmlEditorUtils/obj/Debug
+*.suo

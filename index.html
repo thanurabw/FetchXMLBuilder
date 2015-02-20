@@ -20,15 +20,21 @@
                 success: function (data) {
                     if (data.assets.length > 0) {
                         var date = new Date(data.published_at);
-                        $("#latest-version span").text(data.tag_name);
-                        $("#latest-published span").text(date.toFormattedString('yyyy-mm-dd'));
-                        $("#latest-downloads span").text(data.assets[0].download_count);
+                        $("#latest-version").text(data.tag_name);
+                        $("#latest-published").text(date.toFormattedString('yyyy-mm-dd'));
+                        $("#latest-downloads").text(data.assets[0].download_count);
                         $("#latest-download span").text("Download FXB " + data.tag_name);
+                        //$("#latest-download span").text("Download " + data.name);
                         $("#latest-download").attr('href', data.assets[0].browser_download_url);
+                        $("#release-notes").attr('href', data.html_url);
+                        //var notes = data.body;
+                        //var converter = new Showdown.converter();
+                        //var htmlnotes = converter.makeHtml(notes);
+                        //$("#latest-notes").text(htmlnotes);
                     } else {
-                        $("#latest-version span").text("");
-                        $("#latest-published span").text("");
-                        $("#latest-downloads span").text("");
+                        $("#latest-version").text("");
+                        $("#latest-published").text("");
+                        $("#latest-downloads").text("");
                         $("#latest-download span").text("No download available");
                         $("#latest-download").attr('href', "#");
                     }
@@ -72,61 +78,75 @@
             return f;
         };
 
-</script>
-<style type="text/css">
-    .auto-style1 {
-        width: 79%;
-    }
-</style>
+    </script>
+    <style type="text/css">
+        .auto-style1 {
+            width: 79%;
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
         <header>
             <h1 class="title">
                 <img src="images/Cinteros100.png" valign="middle" />
-                FetchXML Builder</h1>
-            </header>
-            <div id="container">
-                <p class="tagline">
-                    <a href="http://www.xrmtoolbox.com">XrmToolbox</a> plugin to create and run advanced FetchXML queries<br />
-                    <i>by <a href="http://jonasrapp.cinteros.se" target="_blank">Jonas Rapp</a>, <a href="http://cinteros.se" target="_blank">Cinteros AB</a>
-                    </p>
-                </i> 
-                <div id="main" role="main">
-                    <div class="download-bar">
-                        <div class="inner">
-                            <a href="https://github.com/Cinteros/FetchXMLBuilder" class="code">View on GitHub</a>
-                        </div>
-                        <span class="blc"></span><span class="trc"></span>
+                FetchXML Builder
+            </h1>
+        </header>
+        <div id="container">
+            <p class="tagline">
+                <a href="http://www.xrmtoolbox.com">XrmToolbox</a> plugin to create and run advanced FetchXML queries<br />
+                <i>by Jonas Rapp, Cinteros AB</i>
+            </p>
+            <div id="main" role="main">
+                <div class="download-bar">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <div class="inner">
+                                    <a href="https://github.com/Cinteros/FetchXMLBuilder" class="code">View on GitHub</a>
+                                </div>
+                                <span class="blc"></span><span class="trc"></span>
+                            </td>
+                            <td align="right">
+                                <a href="http://jonasrapp.cinteros.se" target="_blank"><img src="images/blogger.png" width="30" height="30" /></a>&nbsp;
+                                <a href="http://twitter.com/rappen" target="_blank"><img src="images/twitter.png" width="30" height="30" /></a>&nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <article class="markdown-body">
+                    <h1>
+                        <a id="fetchxml-builder-for-xrmtoolbox" class="anchor" href="#fetchxml-builder-for-xrmtoolbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>FetchXML Builder for XrmToolBox
+                    </h1>
+                    <div>
+                        <table>
+                            <tr>
+                                <td><strong>Version</strong></td>
+                                <td id="latest-version">Loading version...</td>
+                                <td rowspan="3" align="center" valign="middle">
+                                    <a class="download-button zip" id="latest-download"><span>Download FXB</span></a><br />
+                                    <a id="release-notes">Release notes</a>
+                                    |
+                                    <a href="https://github.com/Cinteros/FetchXMLBuilder/releases">View All Releases</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Published</strong></td>
+                                <td id="latest-published">Loading publish date...</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Downloads</strong></td>
+                                <td id="latest-downloads">Loading download count...</td>
+                            </tr>
+                        </table>
                     </div>
-                    <article class="markdown-body">
-                        <h1>
-                            <a id="fetchxml-builder-for-xrmtoolbox" class="anchor" href="#fetchxml-builder-for-xrmtoolbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>FetchXML Builder for XrmToolBox
-                        </h1>
-                        <div>
-                            <table>
-                                <tr>
-                                    <td><strong>Version</strong></td>
-                                    <td id="latest-version"><span>Loading version...</span></td>
-                                    <td rowspan="2"><a class="download-button zip" id="latest-download"><span>Download FXB now!</span></a></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Published</strong></td>
-                                    <td id="latest-published"><span>Loading publish date...</span></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Downloads</strong></td>
-                                    <td id="latest-downloads"><span>Loading download count...</span></td>
-                                    <td><a href="https://github.com/Cinteros/FetchXMLBuilder/releases" class="download-button cint"><span>View All Releases</span></a></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <h3>
-                            <a id="background" class="anchor" href="#background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background
-                        </h3>
-                        <p>As many other CRM developers, I used to use <strong>Stunnware Tools</strong> extensively to query the CRM database for information and to assist me when creating fetch xml to be used in our solutions.</p>
-                        <p>Unfortunately, this tool was discontinued, and I have found no good substitute. So the time was ripe to do something about it myself!</p>
-                        <p>The easiest way to get a jump start is – of course – to create it as a plugin to the XrmToolBox. Then I wouldn't have to deal with the hassles of connecting to CRM, storing configurations etc. And it would also provide a platform that is recognized throughout the CRM community, which of course would help spreading the tool.</p>
+                    <h3>
+                        <a id="background" class="anchor" href="#background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background
+                    </h3>
+                    <p>As many other CRM developers, I used to use <strong>Stunnware Tools</strong> extensively to query the CRM database for information and to assist me when creating fetch xml to be used in our solutions.</p>
+                    <p>Unfortunately, this tool was discontinued, and I have found no good substitute. So the time was ripe to do something about it myself!</p>
+                    <p>The easiest way to get a jump start is – of course – to create it as a plugin to the XrmToolBox. Then I wouldn't have to deal with the hassles of connecting to CRM, storing configurations etc. And it would also provide a platform that is recognized throughout the CRM community, which of course would help spreading the tool.</p>
                     <h3>
                         <a id="project-description" class="anchor" href="#project-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Description
                     </h3>
@@ -166,55 +186,58 @@
             <div class="owner">
                 <p>
                     <a href="https://github.com/Cinteros" class="avatar">
-                        <img src="https://avatars2.githubusercontent.com/u/1914472?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/Cinteros">Cinteros</a> maintains <a href="https://github.com/Cinteros/FetchXMLBuilder">FetchXML Builder</a>
-                    </p>
+                        <img src="https://avatars2.githubusercontent.com/u/1914472?v=3&amp;s=60" width="48" height="48">
+                    </a> <a href="https://github.com/Cinteros">Cinteros</a> maintains <a href="https://github.com/Cinteros/FetchXMLBuilder">FetchXML Builder</a>
+                </p>
 
-                </div>
-                <div class="creds">
-                    <small>This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br>
-                        theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
-                    </div>
-                </footer>
             </div>
-            <div class="current-section">
-                <a href="#top">Scroll to top</a>
-                <!--<a href="https://github.com/Cinteros/FetchXMLBuilder/releases" class="zip">zip</a><a href="" class="code">source code</a>-->
-                <p class="name"></p>
+            <div class="creds">
+                <small>
+                    This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br>
+                    theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a>
+                </small>
             </div>
+        </footer>
+    </div>
+    <div class="current-section">
+        <a href="#top">Scroll to top</a>
+        <!--<a href="https://github.com/Cinteros/FetchXMLBuilder/releases" class="zip">zip</a><a href="" class="code">source code</a>-->
+        <p class="name"></p>
+    </div>
 
-            <!-- Start of StatCounter Code for Default Guide -->
-            <script type="text/javascript">
-                var sc_project = 10300908;
-                var sc_invisible = 1;
-                var sc_security = "d1d1a604";
-                var sc_https = 1;
-                var scJsHost = (("https:" == document.location.protocol) ?
-                    "https://secure." : "http://www.");
-                document.write("<sc" + "ript type='text/javascript' src='" +
-                    scJsHost +
-                    "statcounter.com/counter/counter.js'></" + "script>");
-            </script>
-            <noscript>
-                <div class="statcounter">
-                    <a title="click tracking"
-                    href="http://statcounter.com/" target="_blank">
-                    <img class="statcounter"
-                    src="http://c.statcounter.com/10300908/0/d1d1a604/1/"
-                    alt="click tracking">
-                </a>
-            </div>
-        </noscript>
-        <!-- End of StatCounter Code for Default Guide -->
+    <!-- Start of StatCounter Code for Default Guide -->
+    <script type="text/javascript">
+        var sc_project = 10300908;
+        var sc_invisible = 1;
+        var sc_security = "d1d1a604";
+        var sc_https = 1;
+        var scJsHost = (("https:" == document.location.protocol) ?
+            "https://secure." : "http://www.");
+        document.write("<sc" + "ript type='text/javascript' src='" +
+            scJsHost +
+            "statcounter.com/counter/counter.js'></" + "script>");
+    </script>
+    <noscript>
+        <div class="statcounter">
+            <a title="click tracking"
+               href="http://statcounter.com/" target="_blank">
+                <img class="statcounter"
+                     src="http://c.statcounter.com/10300908/0/d1d1a604/1/"
+                     alt="click tracking">
+            </a>
+        </div>
+    </noscript>
+    <!-- End of StatCounter Code for Default Guide -->
 
-        <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-            try {
-                var pageTracker = _gat._getTracker("UA-41153925-6");
-                pageTracker._trackPageview();
-            } catch (err) { }
-        </script>
-    </body>
-    </html>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-41153925-6");
+            pageTracker._trackPageview();
+        } catch (err) { }
+    </script>
+</body>
+</html>

@@ -678,7 +678,7 @@ a.download-button {
   display: inline-block;
   text-indent: 0!important;
   width: auto;
-  float: right;
+  float: inherit;
   background: #999; /* for non-css3 browsers */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#37ADD4', endColorstr='#1B657E'); /* IE <= 9 */
   background: -webkit-gradient(linear, left top, left bottom, from(#37ADD4), to(#1B657E)); /* ancient webkit browsers */

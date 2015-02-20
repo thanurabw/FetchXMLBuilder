@@ -485,8 +485,8 @@ p.tagline {
 }
 
 .download-bar {
-  background: #222;
-  border: 5px solid #444;
+  background: #444;
+  border: 5px solid #222;
   padding: 10px;
   margin: 0 -35px 20px;
   position: relative;

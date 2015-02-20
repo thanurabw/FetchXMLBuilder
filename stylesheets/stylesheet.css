@@ -857,8 +857,8 @@ footer .owner p a {
 }
 
 .markdown-body tbody {
-  border-top: 2px solid #557398;
-  border-bottom: 2px solid #557398;
+  border-top: 3px double #000;
+  border-bottom: 3px double #000;
   background-color: #EBEFF4;
 }
 
@@ -867,8 +867,8 @@ footer .owner p a {
 }
 
 .markdown-body td {
-  border-right: 1px solid #557398;
-  border-bottom: 1px solid #557398;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
   padding: 5px;
 }
 
@@ -878,7 +878,7 @@ footer .owner p a {
   padding-left: 20px;
 }
 
-.markdown-body td:last-child {
+.markdown-body tr:first-child td:last-child {
   border-right: 0 none;
 }
 

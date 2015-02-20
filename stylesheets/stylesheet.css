@@ -7,6 +7,7 @@
  */
 
  @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+ @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:700);
 
  html {
   font-family: 'Roboto', sans-serif;
@@ -136,7 +137,6 @@
  h1 {
   font-size: 2em;
   margin: 0.67em 0;
-  text-shadow: 0 0 5px #b1b1b1;
 }
 
 /**
@@ -456,8 +456,8 @@ h1.title {
   margin: 30px 20px 10px;
   font-size: 60px;
   font-weight: bold;
-  font-family: 'Roboto', sans-serif;
-  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: 'Roboto Slab', serif;
+  text-shadow: 0 0 5px #b1b1b1;
   text-align: center;
 }
 
@@ -857,8 +857,8 @@ footer .owner p a {
 }
 
 .markdown-body tbody {
-  border-top: 2px solid #557398;
-  border-bottom: 2px solid #557398;
+  border-top: 3px double #000;
+  border-bottom: 3px double #000;
   background-color: #EBEFF4;
 }
 
@@ -867,8 +867,8 @@ footer .owner p a {
 }
 
 .markdown-body td {
-  border-right: 1px solid #557398;
-  border-bottom: 1px solid #557398;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
   padding: 5px;
 }
 
@@ -878,7 +878,7 @@ footer .owner p a {
   padding-left: 20px;
 }
 
-.markdown-body td:last-child {
+.markdown-body tr:first-child td:last-child {
   border-right: 0 none;
 }
 

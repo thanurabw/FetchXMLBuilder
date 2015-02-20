@@ -18,6 +18,7 @@
             $.ajax({
                 url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/releases/latest',
                 success: function (data) {
+                    alert(data);
                     if (data && data.assets && data.assets.length > 0) {
                         var count = data.assets[0].download_count;
                         var version = data.tag_name;
@@ -44,6 +45,20 @@
                         $("#latest-published").text("");
                         $("#latest-downloads").text("");
                         $("#latest-download span").text("No download available");
+                        $("#latest-download").attr('href', "#");
+                    }
+                },
+                error: function (xhr, options, error) {
+                    $("#latest-published").text("");
+                    $("#latest-downloads").text("");
+                    if (xhr && xhr.status && xhr.status == 403) {
+                        $("#latest-version").text("");
+                        $("#latest-download span").text("You really want FXB, right!?");
+                        $("#latest-download").attr('href', "https://github.com/Cinteros/FetchXMLBuilder/releases");
+                    }
+                    else {
+                        $("#latest-version").text(error);
+                        $("#latest-download span").text("");
                         $("#latest-download").attr('href', "#");
                     }
                 }

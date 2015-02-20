@@ -435,7 +435,7 @@ body {
   font-size: 15px;
   font-family: 'Roboto', sans-serif;
   /*font-family: Arial, Arial, Helvetica, sans-serif;*/
-  line-height: 1.5;
+  line-height: 1.2;
   background-image: url(../images/background.png);
 }
 
@@ -831,7 +831,7 @@ footer .owner p a {
 .markdown-body li p,
 .markdown-body dd,
 .markdown-body dd p {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .markdown-body li pre,

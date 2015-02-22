@@ -83,7 +83,19 @@
                         $("#total-downloads").text(" (" + count + ")");
                     }
                 }
-            })
+            });
+            $.ajax({
+                url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/subscribers',
+                success: function (data) {
+                    if (data) {
+                        var watchers = "";
+                        $(data).each(function (index) {
+                            watchers += "<a href='" + this.html_url + "' title='" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a><br/>";
+                        });
+                        $("#watchers").html(watchers);
+                    }
+                }
+            });
         });
         Date.prototype.toFormattedString = function (format) {
             /// <summary>
@@ -142,93 +154,111 @@
                 <a href="http://www.xrmtoolbox.com">XrmToolBox</a> plugin to create and run advanced FetchXML queries<br />
                 <i>by Jonas Rapp, Cinteros AB</i>
             </p>
-            <div id="main" role="main">
-                <div class="download-bar">
-                    <table width="100%" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td>
-                                <div class="inner">
-                                    <a href="https://github.com/Cinteros/FetchXMLBuilder" class="code">View on GitHub</a>
+            <table>
+                <tr>
+                    <td>
+                        <div id="main" role="main">
+                            <div class="download-bar">
+                                <table width="100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <div class="inner">
+                                                <a href="https://github.com/Cinteros/FetchXMLBuilder" class="code">View on GitHub</a>&nbsp;
+                                            </div>
+                                            <span class="blc"></span><span class="trc"></span>
+                                        </td>
+                                        <td align="right">
+                                            <a href="http://cinteros.se" target="_blank" title="Cinteros AB"><img src="images/Cinteros100.png" width="30" height="30" /></a>&nbsp;
+                                            <a href="http://jonasrapp.cinteros.se" target="_blank" title="Jonas Rapp blog"><img src="images/blogger.png" width="30" height="30" /></a>&nbsp;
+                                            <a href="http://twitter.com/rappen" target="_blank" title="Jonas Rapp on Twitter"><img src="images/twitter.png" width="30" height="30" /></a>&nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <article class="markdown-body">
+                                <h1>
+                                    <a id="fetchxml-builder-for-xrmtoolbox" class="anchor" href="#fetchxml-builder-for-xrmtoolbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>FetchXML Builder for XrmToolBox
+                                </h1>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td><strong>Current version</strong></td>
+                                            <td id="latest-version">Loading version...</td>
+                                            <td rowspan="3" align="center" valign="middle">
+                                                <a class="download-button zip" id="latest-download"><span>Download FXB</span></a><br />
+                                                <a id="release-notes">Release notes</a>
+                                                |
+                                                <a href="https://github.com/Cinteros/FetchXMLBuilder/releases">View All Releases</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Publish date</strong></td>
+                                            <td id="latest-published">Loading publish date...</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Downloads (total)</strong></td>
+                                            <td>
+                                                <span id="latest-downloads">Loading download count...</span>
+                                                <span id="total-downloads"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
-                                <span class="blc"></span><span class="trc"></span>
-                            </td>
-                            <td align="right">
-                                <a href="http://cinteros.se" target="_blank" title="Cinteros AB"><img src="images/Cinteros100.png" width="30" height="30" /></a>&nbsp;
-                                <a href="http://jonasrapp.cinteros.se" target="_blank" title="Jonas Rapp blog"><img src="images/blogger.png" width="30" height="30" /></a>&nbsp;
-                                <a href="http://twitter.com/rappen" target="_blank" title="Jonas Rapp on Twitter"><img src="images/twitter.png" width="30" height="30" /></a>&nbsp;
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <article class="markdown-body">
-                    <h1>
-                        <a id="fetchxml-builder-for-xrmtoolbox" class="anchor" href="#fetchxml-builder-for-xrmtoolbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>FetchXML Builder for XrmToolBox
-                    </h1>
-                    <div>
-                        <table>
-                            <tr>
-                                <td><strong>Current version</strong></td>
-                                <td id="latest-version">Loading version...</td>
-                                <td rowspan="3" align="center" valign="middle">
-                                    <a class="download-button zip" id="latest-download"><span>Download FXB</span></a><br />
-                                    <a id="release-notes">Release notes</a>
-                                    |
-                                    <a href="https://github.com/Cinteros/FetchXMLBuilder/releases">View All Releases</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Publish date</strong></td>
-                                <td id="latest-published">Loading publish date...</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Downloads (total)</strong></td>
-                                <td>
-                                    <span id="latest-downloads">Loading download count...</span>
-                                    <span id="total-downloads"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <h3>
-                        <a id="background" class="anchor" href="#background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background
-                    </h3>
-                    <p>As many other CRM developers, I used to use <strong>Stunnware Tools</strong> extensively to query the CRM database for information and to assist me when creating fetch xml to be used in our solutions.</p>
-                    <p>Unfortunately, this tool was discontinued, and I have found no good substitute. So the time was ripe to do something about it myself!</p>
-                    <p>The easiest way to get a jump start is – of course – to create it as a plugin to the XrmToolBox. Then I wouldn't have to deal with the hassles of connecting to CRM, storing configurations etc. And it would also provide a platform that is recognized throughout the CRM community, which of course would help spreading the tool.</p>
-                    <h3>
-                        <a id="project-description" class="anchor" href="#project-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Description
-                    </h3>
-                    <p><em>The goal is to create a tool that will assist you in the following areas:</em></p>
-                    <p>Constructing FetchXML in ways that Advanced Find cannot</p>
-                    <ul>
-                        <li>aggregates</li>
-                        <li>outer joins</li>
-                        <li>"has no"-queries</li>
-                        <li>attributes from linked entities</li>
-                        <li>join on other fields than relationships</li>
-                    </ul>
-                    <p>Querying CRM for information not (easily) found in the CRM UI</p>
-                    <ul>
-                        <li>system entities</li>
-                        <li>"hidden" attributes</li>
-                    </ul>
-                    <p>Developer assistance</p>
-                    <ul>
-                        <li>Generate C# QueryExpression code from fetch xml</li>
-                    </ul>
-                    <p>The tool reads metadata from CRM to assist with selecting entities, attributes, relations and to perform validation of condition values.</p>
-                    <p>To make it more appealing, there is also the possibility to have it show "Friendly names", which will replace the technical names of entities and attributes with their display names in the users' currently selected language, much like Advanced Find does.</p>
-                    <h3>
-                        <a id="information" class="anchor" href="#information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Information
-                    </h3>
-                    <p>Some screen shots are available under <a href="http://github.com/Cinteros/FetchXMLBuilder/wiki">Wiki</a>. More info will be posted :) </p>
-                    <p>Feedback is much appreciated, post issues and suggestions under  <a href="http://github.com/Cinteros/FetchXMLBuilder/issues">Issues</a>!</p>
-                    <h3>
-                        <a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits
-                    </h3>
-                    <p>This tool was "inspired by" the <a href="http://download-codeplex.sec.s-msft.com/Download?ProjectName=xrmtoolbox&amp;DownloadId=776491">Sitemap</a> Editor and a few other tools written by Tanguy and inherits the <a href="https://github.com/MscrmTools/XrmToolBox/blob/master/XrmToolBox/PluginBase.cs"><code>PluginBase</code></a> class by <a href="http://www.codeplex.com/site/users/view/hulk2484">Daryl LaBar</a>.</p>
-                </article>
-            </div>
+                                <div align="right">
+                                </div>
+                                <h3>
+                                    <a id="background" class="anchor" href="#background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background
+                                </h3>
+                                <p>As many other CRM developers, I used to use <strong>Stunnware Tools</strong> extensively to query the CRM database for information and to assist me when creating fetch xml to be used in our solutions.</p>
+                                <p>Unfortunately, this tool was discontinued, and I have found no good substitute. So the time was ripe to do something about it myself!</p>
+                                <p>The easiest way to get a jump start is – of course – to create it as a plugin to the XrmToolBox. Then I wouldn't have to deal with the hassles of connecting to CRM, storing configurations etc. And it would also provide a platform that is recognized throughout the CRM community, which of course would help spreading the tool.</p>
+                                <h3>
+                                    <a id="project-description" class="anchor" href="#project-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Description
+                                </h3>
+                                <p><em>The goal is to create a tool that will assist you in the following areas:</em></p>
+                                <p>Constructing FetchXML in ways that Advanced Find cannot</p>
+                                <ul>
+                                    <li>aggregates</li>
+                                    <li>outer joins</li>
+                                    <li>"has no"-queries</li>
+                                    <li>attributes from linked entities</li>
+                                    <li>join on other fields than relationships</li>
+                                </ul>
+                                <p>Querying CRM for information not (easily) found in the CRM UI</p>
+                                <ul>
+                                    <li>system entities</li>
+                                    <li>"hidden" attributes</li>
+                                </ul>
+                                <p>Developer assistance</p>
+                                <ul>
+                                    <li>Generate C# QueryExpression code from fetch xml</li>
+                                </ul>
+                                <p>The tool reads metadata from CRM to assist with selecting entities, attributes, relations and to perform validation of condition values.</p>
+                                <p>To make it more appealing, there is also the possibility to have it show "Friendly names", which will replace the technical names of entities and attributes with their display names in the users' currently selected language, much like Advanced Find does.</p>
+                                <h3>
+                                    <a id="information" class="anchor" href="#information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Information
+                                </h3>
+                                <p>Some screen shots are available under <a href="http://github.com/Cinteros/FetchXMLBuilder/wiki">Wiki</a>. More info will be posted :) </p>
+                                <p>Feedback is much appreciated, post issues and suggestions under  <a href="http://github.com/Cinteros/FetchXMLBuilder/issues">Issues</a>!</p>
+                                <h3>
+                                    <a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits
+                                </h3>
+                                <p>This tool was "inspired by" the <a href="http://download-codeplex.sec.s-msft.com/Download?ProjectName=xrmtoolbox&amp;DownloadId=776491">Sitemap</a> Editor and a few other tools written by Tanguy and inherits the <a href="https://github.com/MscrmTools/XrmToolBox/blob/master/XrmToolBox/PluginBase.cs"><code>PluginBase</code></a> class by <a href="http://www.codeplex.com/site/users/view/hulk2484">Daryl LaBar</a>.</p>
+                            </article>
+                        </div>
+                    </td>
+                    <td valign="top" align="center">
+                        <br /><br /><br /><br /><br />
+                        <!--<iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&type=follow&count=true" frameborder="0" scrolling="0" width="150px" height="20px"></iframe><br />
+                        <iframe src="https://ghbtns.com/github-btn.html?user=rappen&type=follow&count=true" frameborder="0" scrolling="0" width="150px" height="20px"></iframe><br />-->
+                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe><br />
+                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>&nbsp;&nbsp;<br />
+                        <br/>
+                        --watchers--<br/>
+                        <span id="watchers"></span>
+                    </td>
+                </tr>
+            </table>
         </div>
         <footer>
             <div class="owner">
@@ -241,8 +271,8 @@
             </div>
             <div class="creds">
                 <small>
-                    This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br>
-                    theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a>
+                    This page generated from <a href="http://pages.github.com/">GitHub Pages</a><br>
+                    theme orignially by <a href="https://twitter.com/jonrohan/">Jon Rohan</a>
                 </small>
             </div>
         </footer>

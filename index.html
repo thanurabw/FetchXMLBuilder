@@ -85,15 +85,35 @@
                 }
             });
             $.ajax({
+                url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/stargazers',
+                success: function (data) {
+                    var gazers = "";
+                    if (data) {
+                        $(data).each(function (index) {
+                            gazers += "<a href='" + this.html_url + "' title='" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a><br/>";
+                        });
+                    }
+                    if (gazers) {
+                        gazers = //"--starred by--<br/>" +
+                            gazers + "<br/><br/>";
+                    }
+                    $("#gazers").html(gazers);
+                }
+            });
+            $.ajax({
                 url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/subscribers',
                 success: function (data) {
+                    var watchers = "";
                     if (data) {
-                        var watchers = "";
                         $(data).each(function (index) {
                             watchers += "<a href='" + this.html_url + "' title='" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a><br/>";
                         });
-                        $("#watchers").html(watchers);
                     }
+                    if (watchers) {
+                        watchers = // "--watched by--<br/>" +
+                             watchers + "<br/><br/>";
+                    }
+                    $("#watchers").html(watchers);
                 }
             });
         });
@@ -249,13 +269,13 @@
                     </td>
                     <td valign="top" align="center">
                         <br /><br /><br /><br /><br />
-                        <!--<iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&type=follow&count=true" frameborder="0" scrolling="0" width="150px" height="20px"></iframe><br />
-                        <iframe src="https://ghbtns.com/github-btn.html?user=rappen&type=follow&count=true" frameborder="0" scrolling="0" width="150px" height="20px"></iframe><br />-->
-                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe><br />
-                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>&nbsp;&nbsp;<br />
-                        <br/>
-                        --watchers--<br/>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                        <span id="gazers"></span>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
                         <span id="watchers"></span>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                        <!--<iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&type=follow&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=rappen&type=follow&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
                     </td>
                 </tr>
             </table>

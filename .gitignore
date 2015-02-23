@@ -8,3 +8,9 @@
 /XmlEditorUtils/bin/Debug
 /XmlEditorUtils/obj/Debug
 *.suo
+/FetchXmlBuilder/bin/Release
+/FetchXmlBuilder/obj/Release/TempPE
+/FetchXmlBuilder/obj/Release
+/Samples
+/XmlEditorUtils/bin/Release
+/XmlEditorUtils/obj/Release

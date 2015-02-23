@@ -15,6 +15,52 @@
     <link rel="icon" type="image/x-icon" href="http://fxb.xrmtoolbox.com/favicon.ico">
     <script>
         $(document).ready(function () {
+            UpdateDownloads();
+            $.ajax({
+                url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/stargazers',
+                success: function (data) {
+                    var gazers = "";
+                    if (data) {
+                        $(data).each(function (index) {
+                            gazers += "<a href='" + this.html_url + "' title='" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a>";
+                            if (index % 2 != 0) {
+                                gazers += "<br/>";
+                            }
+                        });
+                    }
+                    if (gazers) {
+                        gazers = //"--starred by--<br/>" +
+                            gazers + "<br/><br/>";
+                    }
+                    $("#gazers").html(gazers);
+                }
+            });
+            $.ajax({
+                url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/subscribers',
+                success: function (data) {
+                    var watchers = "";
+                    if (data) {
+                        $(data).each(function (index) {
+                            watchers += "<a href='" + this.html_url + "' title='" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a>";
+                            if (index % 2 != 0) {
+                                watchers += "<br/>";
+                            }
+                        });
+                    }
+                    if (watchers) {
+                        watchers = // "--watched by--<br/>" +
+                             watchers + "<br/><br/>";
+                    }
+                    $("#watchers").html(watchers);
+                }
+            });
+        });
+
+        UpdateDownloads = function () {
+            $("#latest-version").text("Loading...");
+            $("#latest-published").text("Loading...");
+            $("#latest-downloads").text("Loading...");
+            $("#total-downloads").text("");
             $.ajax({
                 url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/releases/latest',
                 success: function (data) {
@@ -84,45 +130,8 @@
                     }
                 }
             });
-            $.ajax({
-                url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/stargazers',
-                success: function (data) {
-                    var gazers = "";
-                    if (data) {
-                        $(data).each(function (index) {
-                            gazers += "<a href='" + this.html_url + "' title='" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a>";
-                            if (index % 2 != 0) {
-                                gazers += "<br/>";
-                            }
-                        });
-                    }
-                    if (gazers) {
-                        gazers = //"--starred by--<br/>" +
-                            gazers + "<br/><br/>";
-                    }
-                    $("#gazers").html(gazers);
-                }
-            });
-            $.ajax({
-                url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/subscribers',
-                success: function (data) {
-                    var watchers = "";
-                    if (data) {
-                        $(data).each(function (index) {
-                            watchers += "<a href='" + this.html_url + "' title='" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a>";
-                            if (index % 2 != 0) {
-                                watchers += "<br/>";
-                            }
-                        });
-                    }
-                    if (watchers) {
-                        watchers = // "--watched by--<br/>" +
-                             watchers + "<br/><br/>";
-                    }
-                    $("#watchers").html(watchers);
-                }
-            });
-        });
+        };
+
         Date.prototype.toFormattedString = function (format) {
             /// <summary>
             /// Formats date string dd (date), mm (month), yyyy (year), MM (min), hh (hour), ss (seconds), ms (millisec), APM (AM/PM)
@@ -226,6 +235,7 @@
                                             <td>
                                                 <span id="latest-downloads">Loading download count...</span>
                                                 <span id="total-downloads"></span>
+                                                <span><a href="javascript:UpdateDownloads();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span>
                                             </td>
                                         </tr>
                                     </table>

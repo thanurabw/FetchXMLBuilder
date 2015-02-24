@@ -1,13 +1,13 @@
 LoadPeople = function (apimethod, element, cols) {
     $.ajax({
-        url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/' + apimethod,
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/' + apimethod,
         success: function (data) {
             var gazers = "";
             if (data) {
                 data.sort(sort_by('login', false, function (a) { return a.toUpperCase() }));
                 $(data).each(function (index) {
                     gazers += "<a href='" + this.html_url + "' id='" + apimethod + "_" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a>";
-                    if (index % cols != 0) {
+                    if ((index+1) % cols == 0) {
                         gazers += "<br/>";
                     }
                     GetUserInfo(this, apimethod);
@@ -54,7 +54,7 @@ UpdateDownloads = function (version, published, currentcount, releaselink) {
     $("#" + published).text("Loading...");
     $("#" + currentcount).text("Loading...");
     $.ajax({
-        url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/releases/latest',
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/releases/latest',
         success: function (data) {
             if (data && data.assets && data.assets.length > 0) {
                 var count = data.assets[0].download_count;
@@ -96,7 +96,7 @@ UpdateDownloads = function (version, published, currentcount, releaselink) {
                 //    }
                 //}
                 $("#latest-download span").text("You really want FXB, right!?");
-                $("#latest-download").attr('href', "https://github.com/Cinteros/FetchXMLBuilder/releases");
+                $("#latest-download").attr('href', "https://github.com/' + GH_USER + '/' + GH_REPO + '/releases");
             }
             else {
                 $("#" + version).text(error);
@@ -110,7 +110,7 @@ UpdateDownloads = function (version, published, currentcount, releaselink) {
 UpdateTotalDownloads = function (totalcount) {
     $("#" + totalcount).text("");
     $.ajax({
-        url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/releases',
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/releases',
         success: function (data) {
             if (data && data.length > 0) {
                 var count = 0;
@@ -130,14 +130,15 @@ UpdateTotalDownloads = function (totalcount) {
 UpdateReleaseNotes = function (releasenotes, callback) {
     $("#" + releasenotes).text("Loading...");
     $.ajax({
-        url: 'https://api.github.com/repos/Cinteros/FetchXMLBuilder/releases/latest',
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/releases/latest',
         success: function (data) {
             if (data && data.assets && data.assets.length > 0) {
                 var notes = data.body;
                 var converter = new Showdown.converter();
                 var htmlnotes = converter.makeHtml(notes);
                 // Correction for github flavor of markdown, issue references
-                htmlnotes = htmlnotes.replace("<h1>", "").replace("</h1>", "");
+                htmlnotes = htmlnotes.replace(/<h1>/g, '#').replace('</h1>', '');
+                htmlnotes = htmlnotes.replace(/<p>/g, '<br/><br/><p>');
                 $("#" + releasenotes).html(htmlnotes);
             } else {
                 $("#" + releasenotes).text("");

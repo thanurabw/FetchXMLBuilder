@@ -16,6 +16,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" type="image/x-icon" href="http://fxb.xrmtoolbox.com/favicon.ico">
     <script>
+        var GH_USER = "Cinteros";
+        var GH_REPO = "FetchXMLBuilder";
+
         var releasenotesshowing = false;
         var releasenotesloaded = false;
 
@@ -49,7 +52,7 @@
                     releasenotesshowing = true;
                 }
             }
-        }
+        };
     </script>
     <style type="text/css">
         .auto-style1 {
@@ -120,8 +123,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td valign="top"><strong>Release Notes&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-                                            <a href="javascript:ShowHideReleaseNotes();" id="showhide-releasenotes">Show</a></td>
+                                            <td valign="top">
+                                                <strong>Release Notes&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                                                <a href="javascript:ShowHideReleaseNotes();" id="showhide-releasenotes">Show</a>
+                                            </td>
                                             <td colspan="2"><div id="release-notes"></div></td>
                                         </tr>
                                     </table>

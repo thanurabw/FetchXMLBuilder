@@ -26,6 +26,7 @@
             UpdateRelease();
             LoadPeople("stargazers", "gazers", 2);
             LoadPeople("subscribers", "watchers", 2);
+            LoadIssues("issues-open", "issues-closed");
         });
 
         UpdateRelease = function () {
@@ -186,6 +187,9 @@
                         <iframe src="https://ghbtns.com/github-btn.html?user=rappen&type=follow&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
                         <br /><br />
                         <a href="https://gitter.im/Cinteros/FetchXMLBuilder" target="_blank"><img src="https://camo.githubusercontent.com/da2edb525cde1455a622c58c0effc3a90b9a181c/68747470733a2f2f6261646765732e6769747465722e696d2f4a6f696e253230436861742e737667" alt="Join the chat at https://gitter.im/Cinteros/FetchXMLBuilder" data-canonical-src="https://badges.gitter.im/Join%20Chat.svg" xstyle="max-width:100%;"></a>
+                        <br /><br />
+                        <a href="https://github.com/Cinteros/FetchXMLBuilder/issues">issues</a>:
+                        <span id="issues-open"></span> / <span id="issues-closed"></span>
                     </td>
                 </tr>
             </table>

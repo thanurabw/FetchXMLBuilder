@@ -7,7 +7,7 @@ LoadPeople = function (apimethod, element, cols) {
                 data.sort(sort_by('login', false, function (a) { return a.toUpperCase() }));
                 $(data).each(function (index) {
                     gazers += "<a href='" + this.html_url + "' id='" + apimethod + "_" + this.login + "' target='_blank'><img src='" + this.avatar_url + "' height='50' width='50'/></a>";
-                    if ((index+1) % cols == 0) {
+                    if ((index + 1) % cols == 0) {
                         gazers += "<br/>";
                     }
                     GetUserInfo(this, apimethod);
@@ -20,7 +20,7 @@ LoadPeople = function (apimethod, element, cols) {
             $("#" + element).html(gazers);
         }
     });
-}
+};
 
 GetUserInfo = function (user, target) {
     $.ajax({
@@ -47,7 +47,7 @@ GetUserInfo = function (user, target) {
             $(element).attr('title', info);
         }
     });
-}
+};
 
 UpdateDownloads = function (version, published, currentcount, releaselink) {
     $("#" + version).text("Loading...");
@@ -125,7 +125,7 @@ UpdateTotalDownloads = function (totalcount) {
             }
         }
     });
-}
+};
 
 UpdateReleaseNotes = function (releasenotes, callback) {
     $("#" + releasenotes).text("Loading...");
@@ -159,6 +159,31 @@ UpdateReleaseNotes = function (releasenotes, callback) {
     });
 };
 
+LoadIssues = function (open, closed) {
+    $("#" + open).text("?");
+    $("#" + closed).text("?");
+    $.ajax({
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=open',
+        success: function (data) {
+            var count = 0;
+            if (data) {
+                count = data.length;
+            }
+            $("#" + open).text(count);
+        }
+    });
+    $.ajax({
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=closed',
+        success: function (data) {
+            var count = 0;
+            if (data) {
+                count = data.length;
+            }
+            $("#" + closed).text(count);
+        }
+    });
+};
+
 var sort_by = function (field, reverse, primer) {
 
     var key = primer ?
@@ -170,7 +195,7 @@ var sort_by = function (field, reverse, primer) {
     return function (a, b) {
         return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
     }
-}
+};
 
 Date.prototype.toFormattedString = function (format) {
     /// <summary>

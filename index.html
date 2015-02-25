@@ -64,8 +64,8 @@
 <body>
     <div class="wrapper">
         <header>
-            <h1 class="title">
-                <img src="images/FXB-100.png" valign="middle" />
+            <h1 class="title" onclick="window.location = 'http://fxb.xrmtoolbox.com';">
+                <a href="http://fxb.xrmtoolbox.com"><img src="images/FXB-100.png" valign="middle" /></a>
                 FetchXML&nbsp;Builder
             </h1>
         </header>
@@ -212,6 +212,22 @@
                         <a href="issues">issues</a>:
                         <span id="issues-open"></span> / <span id="issues-closed"></span>
                         <br /><br />
+
+                        <!-- DISQUS COUNTER START -->
+                        <script type="text/javascript">
+                            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                            var disqus_shortname = 'fxb'; // required: replace example with your forum shortname
+
+                            /* * * DON'T EDIT BELOW THIS LINE * * */
+                            (function () {
+                                var s = document.createElement('script'); s.async = true;
+                                s.type = 'text/javascript';
+                                s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+                                (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+                            }());
+                        </script>
+                        <!-- DISQUS COUNTER END -->
+
                         <a href="wiki">wiki</a>
                     </td>
                 </tr>

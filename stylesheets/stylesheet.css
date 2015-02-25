@@ -454,9 +454,10 @@ a:hover {
 
 h1.title {
   margin: 30px 20px 10px;
-  font-size: 60px;
+  font-size: 50px;
   font-weight: bold;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Copperplate Gothic';
+  //font-family: 'Roboto Slab', serif;
   text-shadow: 0 0 5px #b1b1b1;
   text-align: center;
 }

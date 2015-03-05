@@ -96,7 +96,7 @@ UpdateDownloads = function (version, published, currentcount, releaselink) {
                 //    }
                 //}
                 $("#latest-download span").text("You really want FXB, right!?");
-                $("#latest-download").attr('href', "https://github.com/'" + GH_USER + "'/'" + GH_REPO + "'/releases");
+                $("#latest-download").attr('href', 'https://github.com/' + GH_USER + '/' + GH_REPO + '/releases');
             }
             else {
                 $("#" + version).text(error);

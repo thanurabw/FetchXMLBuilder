@@ -1,3 +1,6 @@
+var GH_USER = "Cinteros";
+var GH_REPO = "FetchXMLBuilder";
+
 LoadPeople = function (apimethod, element, cols) {
     $.ajax({
         url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/' + apimethod,

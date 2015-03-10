@@ -107,6 +107,24 @@ UpdateDownloads = function (version, published, currentcount, releaselink) {
     });
 };
 
+GetLatestDownloadLink = function () {
+    var url = "";
+    $.ajax({
+        async: false,
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/releases/latest',
+        success: function (data) {
+            if (data && data.assets && data.assets.length > 0) {
+                url = data.assets[0].browser_download_url;
+            }
+        },
+        error: function (xhr, options, error) {
+            return "/";
+        }
+    });
+
+    return url;
+};
+
 UpdateTotalDownloads = function (totalcount) {
     $("#" + totalcount).text("");
     $.ajax({

@@ -138,7 +138,7 @@ UpdateTotalDownloads = function (totalcount) {
                     }
                 });
                 // Add codeplex count
-                count += 830;
+                count += 858;
                 $("#" + totalcount).text(" (" + count + ")");
             }
         }

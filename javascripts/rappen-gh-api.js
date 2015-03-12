@@ -138,8 +138,33 @@ UpdateTotalDownloads = function (totalcount) {
                     }
                 });
                 // Add codeplex count
-                count += 830;
+                count += 858;
                 $("#" + totalcount).text(" (" + count + ")");
+            }
+        }
+    });
+};
+
+UpdateHistoricDownloads = function (histcount, callback) {
+    $("#" + histcount).text("");
+    $.ajax({
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/releases',
+        success: function (data) {
+            if (data && data.length > 0) {
+                var counttext = "<br />";
+                $(data).each(function (index) {
+                    var tag = this.tag_name;
+                    var count = 0;
+                    $(this.assets).each(function (index2) {
+                        count += this.download_count;
+                    });
+                    counttext += tag + ": <strong>" + count + "</strong><br/>";
+                });
+                counttext += "<i>CodePlex : <strong>858</strong></i>";
+                $("#" + histcount).html(counttext);
+            }
+            if (callback) {
+                callback();
             }
         }
     });
@@ -177,9 +202,9 @@ UpdateReleaseNotes = function (releasenotes, callback) {
     });
 };
 
-LoadIssues = function (open, closed) {
+LoadIssues = function (open, total) {
     $("#" + open).text("?");
-    $("#" + closed).text("?");
+    $("#" + total).text("?");
     $.ajax({
         url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=open',
         success: function (data) {
@@ -191,13 +216,13 @@ LoadIssues = function (open, closed) {
         }
     });
     $.ajax({
-        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=closed',
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=all',
         success: function (data) {
             var count = 0;
             if (data) {
                 count = data.length;
             }
-            $("#" + closed).text(count);
+            $("#" + total).text(count);
         }
     });
 };

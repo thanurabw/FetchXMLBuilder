@@ -21,12 +21,14 @@
 
         var releasenotesshowing = false;
         var releasenotesloaded = false;
+        var historyshowing = false;
+        var historyloaded = false;
 
         $(document).ready(function () {
             UpdateRelease();
             LoadPeople("stargazers", "gazers", 2);
             LoadPeople("subscribers", "watchers", 2);
-            LoadIssues("issues-open", "issues-closed");
+            LoadIssues("issues-open", "issues-total");
         });
 
         UpdateRelease = function () {
@@ -54,6 +56,28 @@
                 }
             }
         };
+
+        ShowHideDownloadHistory = function () {
+            if (historyshowing) {
+                $("#hist-downloads").hide(200);
+                $("#showhide-hist").text("+");
+                historyshowing = false;
+            }
+            else {
+                if (!historyloaded) {
+                    $("#showhide-hist").text("loading");
+                    $("#hist-downloads").hide(0);
+                    UpdateHistoricDownloads("hist-downloads", ShowHideDownloadHistory);
+                    historyloaded = true;
+                }
+                else {
+                    $("#hist-downloads").show(100);
+                    $("#showhide-hist").text("-");
+                    historyshowing = true;
+                }
+            }
+        };
+
     </script>
     <style type="text/css">
         .auto-style1 {
@@ -116,11 +140,18 @@
                                             <td id="latest-published">Loading publish date...</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Downloads (total)</strong></td>
+                                            <td valign="top">
+                                                <strong>
+                                                    Downloads (total)
+                                                    &nbsp;&nbsp;
+                                                    <a href="javascript:ShowHideDownloadHistory();" id="showhide-hist" title="Show download count by version">+</a>
+                                                </strong>
+                                            </td>
                                             <td>
                                                 <span id="latest-downloads">Loading download count...</span>
                                                 <span id="total-downloads"></span>
-                                                <span><a href="javascript:UpdateRelease();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span>
+                                                <span><a href="javascript:UpdateRelease();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span><br />
+                                                <span id="hist-downloads"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -152,8 +183,8 @@
                                 <h3>
                                     <a id="project-description" class="anchor" href="#project-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Description
                                 </h3>
-                                <p><em>The goal is to create a tool that will assist you in the following areas:</em></p>
-                                <p>Constructing FetchXML in ways that Advanced Find cannot</p>
+                                <p><strong>The goal is to create a tool that will assist you in the following areas</strong></p>
+                                <p>Constructing FetchXML in ways that Advanced Find cannot:</p>
                                 <ul>
                                     <li>aggregates</li>
                                     <li>outer joins</li>
@@ -161,14 +192,15 @@
                                     <li>attributes from multi-level linked entities</li>
                                     <li>join on other fields than relationships</li>
                                 </ul>
-                                <p>Querying CRM for information not (easily) found in the CRM UI</p>
+                                <p>Querying CRM for information not (easily) found in the CRM UI:</p>
                                 <ul>
                                     <li>system entities</li>
                                     <li>"hidden" attributes</li>
                                 </ul>
-                                <p>Developer assistance</p>
+                                <p>Developer assistance:</p>
                                 <ul>
                                     <li>Generate C# QueryExpression code from fetch xml</li>
+                                    <li>Generate OData query string from fetch xml</li>
                                 </ul>
                                 <p>The tool reads metadata from CRM to assist with selecting entities, attributes, relations and to perform validation of condition values.</p>
                                 <p>To make it more appealing, there is also the possibility to have it show "Friendly names", which will replace the technical names of entities and attributes with their display names in the users' currently selected language, much like Advanced Find does.</p>
@@ -211,7 +243,7 @@
                         <a href="https://gitter.im/Cinteros/FetchXMLBuilder" target="_blank"><img src="https://camo.githubusercontent.com/da2edb525cde1455a622c58c0effc3a90b9a181c/68747470733a2f2f6261646765732e6769747465722e696d2f4a6f696e253230436861742e737667" alt="Join the chat at https://gitter.im/Cinteros/FetchXMLBuilder" data-canonical-src="https://badges.gitter.im/Join%20Chat.svg" xstyle="max-width:100%;"></a>
                         <br /><br />
                         <a href="issues">issues</a>:
-                        <span id="issues-open"></span> / <span id="issues-closed"></span>
+                        <span id="issues-open"></span> (<span id="issues-total"></span>)
                         <br /><br />
 
                         <!-- DISQUS COUNTER START -->

@@ -26,8 +26,8 @@
 
         $(document).ready(function () {
             UpdateRelease();
-            LoadPeople("stargazers", "gazers", 2);
-            LoadPeople("subscribers", "watchers", 2);
+            LoadPeople("stargazers", "gazers", 3);
+            LoadPeople("subscribers", "watchers", 3);
             LoadIssues("issues-open", "issues-total");
         });
 
@@ -151,7 +151,7 @@
                                                 <span id="latest-downloads">Loading download count...</span>
                                                 <span id="total-downloads"></span>
                                                 <span><a href="javascript:UpdateRelease();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span><br />
-                                                <span id="hist-downloads"></span>
+                                                <span id="hist-downloads" style="font-size:'8px'; line-height:0.8; font-family:'Courier'"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -232,9 +232,9 @@
                     <td>&nbsp;&nbsp;</td>
                     <td valign="top" align="left">
                         <br /><br /><br /><br /><br />
-                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe><br />
                         <span id="gazers"></span>
-                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="20px"></iframe><br />
                         <span id="watchers"></span>
                         <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
                         <!--<iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&type=follow&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
@@ -263,7 +263,7 @@
 
                         <a href="wiki">wiki</a>
                         <br /><br />
-                        <a href="http://info.flagcounter.com/b2js"><img src="http://s09.flagcounter.com/count/b2js/bg_FFFFFF/txt_000000/border_FFFFFF/columns_2/maxflags_20/viewers_FXB+fan+base/labels_0/pageviews_0/flags_0/" alt="Flag Counter" border="0"></a>
+                        <a href="http://info.flagcounter.com/b2js" target="_blank"><img src="http://s09.flagcounter.com/count/b2js/bg_FFFFFF/txt_000000/border_D4D4D4/columns_2/maxflags_250/viewers_FXB+fan+base/labels_1/pageviews_0/flags_0/" alt="Flag Counter" border="0"></a>
                     </td>
                 </tr>
             </table>

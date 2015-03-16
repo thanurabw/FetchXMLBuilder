@@ -158,9 +158,10 @@ UpdateHistoricDownloads = function (histcount, callback) {
                     $(this.assets).each(function (index2) {
                         count += this.download_count;
                     });
-                    counttext += tag + ": <strong>" + count + "</strong><br/>";
+                    counttext += tag + ": <strong>" + count.padLeft(3, '&nbsp;') + "</strong><br/>";
                 });
-                counttext += "<i>CodePlex : <strong>858</strong></i>";
+                counttext += GetCodePlexDownloads();
+                counttext += "";
                 $("#" + histcount).html(counttext);
             }
             if (callback) {
@@ -168,6 +169,22 @@ UpdateHistoricDownloads = function (histcount, callback) {
             }
         }
     });
+};
+
+GetCodePlexDownloads = function () {
+    var template = "{tag}: <strong>{count}</strong><br/>";
+    var cp = "<i>&nbsp;-at codeplex-<br/>";
+    cp += template.replace("{tag}", "1.2015.1.10").replace("{count}", (362).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2015.1.9 ").replace("{count}", (44).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.12.8").replace("{count}", (127).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.12.7").replace("{count}", (47).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.12.6").replace("{count}", (58).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.12.5").replace("{count}", (76).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.11.4").replace("{count}", (45).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.11.3").replace("{count}", (23).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.11.2").replace("{count}", (55).padLeft(3,'&nbsp;'));
+    cp += "</i>";
+    return cp;
 };
 
 UpdateReleaseNotes = function (releasenotes, callback) {
@@ -275,4 +292,8 @@ Date.prototype.toFormattedString = function (format) {
     } // end match function
     ); // end format.replace
     return f;
+};
+
+Number.prototype.padLeft = function (n, str) {
+    return Array(n - String(this).length + 1).join(str || '0') + this;
 };

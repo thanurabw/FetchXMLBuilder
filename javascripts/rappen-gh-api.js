@@ -59,7 +59,7 @@ UpdateDownloads = function (version, published, currentcount, releaselink) {
             if (data && data.assets && data.assets.length > 0) {
                 var count = data.assets[0].download_count;
                 var tag = data.tag_name;
-                if (tag == "1.2015.1.10") {
+                if (GH_REPO == "FetchXMLBuilder" && tag == "1.2015.1.10") {
                     // Add codeplex count
                     count += 339;
                     // Del test count
@@ -69,7 +69,7 @@ UpdateDownloads = function (version, published, currentcount, releaselink) {
                 $("#" + version).text(data.tag_name);
                 $("#" + published).text(date.toFormattedString('yyyy-mm-dd'));
                 $("#" + currentcount).text(count);
-                $("#latest-download span").text("Download FXB " + tag);
+                $("#latest-download span").text("Download " + tag);
                 $("#latest-download").attr('href', data.assets[0].browser_download_url);
                 $("#" + releaselink).attr('href', data.html_url);
                 //var notes = data.body;
@@ -95,7 +95,7 @@ UpdateDownloads = function (version, published, currentcount, releaselink) {
                 //        $("#latest-version").text(response.message);
                 //    }
                 //}
-                $("#latest-download span").text("You really want FXB, right!?");
+                $("#latest-download span").text("You really want it, right!?");
                 $("#latest-download").attr('href', 'https://github.com/' + GH_USER + '/' + GH_REPO + '/releases');
             }
             else {
@@ -137,8 +137,10 @@ UpdateTotalDownloads = function (totalcount) {
                         count += this.assets[0].download_count;
                     }
                 });
-                // Add codeplex count
-                count += 858;
+                if (GH_REPO == "FetchXMLBuilder") {
+                    // Add codeplex count
+                    count += 858;
+                }
                 $("#" + totalcount).text(" (" + count + ")");
             }
         }
@@ -160,7 +162,9 @@ UpdateHistoricDownloads = function (histcount, callback) {
                     });
                     counttext += tag + ": <strong>" + count.padLeft(3, '&nbsp;') + "</strong><br/>";
                 });
-                counttext += GetCodePlexDownloads();
+                if (GH_REPO == "FetchXMLBuilder") {
+                    counttext += GetCodePlexDownloads();
+                }
                 counttext += "";
                 $("#" + histcount).html(counttext);
             }
@@ -174,15 +178,15 @@ UpdateHistoricDownloads = function (histcount, callback) {
 GetCodePlexDownloads = function () {
     var template = "{tag}: <strong>{count}</strong><br/>";
     var cp = "<i>&nbsp;-at codeplex-<br/>";
-    cp += template.replace("{tag}", "1.2015.1.10").replace("{count}", (362).padLeft(3,'&nbsp;'));
-    cp += template.replace("{tag}", "1.2015.1.9 ").replace("{count}", (44).padLeft(3,'&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.12.8").replace("{count}", (127).padLeft(3,'&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.12.7").replace("{count}", (47).padLeft(3,'&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.12.6").replace("{count}", (58).padLeft(3,'&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.12.5").replace("{count}", (76).padLeft(3,'&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.11.4").replace("{count}", (45).padLeft(3,'&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.11.3").replace("{count}", (23).padLeft(3,'&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.11.2").replace("{count}", (55).padLeft(3,'&nbsp;'));
+    cp += template.replace("{tag}", "1.2015.1.10").replace("{count}", (362).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2015.1.9 ").replace("{count}", (44).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.12.8").replace("{count}", (127).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.12.7").replace("{count}", (47).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.12.6").replace("{count}", (58).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.12.5").replace("{count}", (76).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.11.4").replace("{count}", (45).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.11.3").replace("{count}", (23).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2014.11.2").replace("{count}", (55).padLeft(3, '&nbsp;'));
     cp += "</i>";
     return cp;
 };
@@ -210,7 +214,7 @@ UpdateReleaseNotes = function (releasenotes, callback) {
         error: function (xhr, options, error) {
             $("#" + releasenotes).text("");
             if (xhr && xhr.status && xhr.status == 403) {
-                $("#" + releasenotes).text("You really want FXB, right!?");
+                $("#" + releasenotes).text("You really want it, right!?");
             }
             else {
                 $("#" + releasenotes).text(error);

@@ -87,8 +87,11 @@ th, td {
     border-bottom: 1px solid #e5e5e5;
 }
 
+th {
+    text-align: center;
+}
+
     th.download {
-        text-align: center;
         text-shadow: 0 0 2px #b1b1b1;
         font-weight: bold;
         padding: 15px 0px 15px 0px;

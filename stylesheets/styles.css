@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 body {
-    padding: 50px;
+    padding: 50px 50px 0px 50px;
     font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #777;
     font-weight: 300;
@@ -21,7 +21,7 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 24px;
     font-family: 'Copperplate Gothic';
     text-shadow: 0 0 5px #b1b1b1;
     text-align: center;
@@ -92,10 +92,11 @@ th {
 }
 
     th.download {
-        text-shadow: 0 0 2px #b1b1b1;
+        text-shadow: 0 0 4px #b1b1b1;
         font-weight: bold;
         padding: 15px 0px 15px 0px;
-        border: 1px solid #e5e5e5;
+        border: 2px solid #e5e5e5;
+        border-style: groove;
     }
 
 dt {
@@ -116,6 +117,14 @@ header, footer {
     float: left;
     position: fixed;
 }
+
+    header p, table {
+        margin-bottom: 5px;
+    }
+
+    footer p {
+        margin: 0;
+    }
 
     footer ul {
         list-style: none;

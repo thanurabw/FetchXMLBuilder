@@ -1,3 +1,5 @@
+var RAPPEN_GH_PAGE_SIZE = 100;
+
 LoadPeople = function (apimethod, element, cols) {
     $.ajax({
         url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/' + apimethod,
@@ -227,21 +229,29 @@ LoadIssues = function (open, total) {
     $("#" + open).text("?");
     $("#" + total).text("?");
     $.ajax({
-        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=open',
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=open&per_page=' + RAPPEN_GH_PAGE_SIZE,
         success: function (data) {
             var count = 0;
             if (data) {
-                count = data.length;
+                if (data.length >= RAPPEN_GH_PAGE_SIZE) {
+                    count = RAPPEN_GH_PAGE_SIZE + "+";
+                } else {
+                    count = data.length;
+                }
             }
             $("#" + open).text(count);
         }
     });
     $.ajax({
-        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=all',
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/issues?state=all&per_page=' + RAPPEN_GH_PAGE_SIZE,
         success: function (data) {
             var count = 0;
             if (data) {
-                count = data.length;
+                if (data.length >= RAPPEN_GH_PAGE_SIZE) {
+                    count = RAPPEN_GH_PAGE_SIZE + "+";
+                } else {
+                    count = data.length;
+                }
             }
             $("#" + total).text(count);
         }

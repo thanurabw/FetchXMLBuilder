@@ -65,7 +65,7 @@
                 if (!historyloaded) {
                     $("#showhide-hist").text("loading");
                     $("#hist-downloads").hide(0);
-                    UpdateHistoricDownloads("hist-downloads", ShowHideDownloadHistory);
+                    UpdateHistoricDownloads("hist-downloads", ShowHideDownloadHistory, true);
                     historyloaded = true;
                 }
                 else {

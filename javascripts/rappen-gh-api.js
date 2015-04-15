@@ -141,7 +141,7 @@ UpdateTotalDownloads = function (totalcount) {
                 });
                 if (GH_REPO == "FetchXMLBuilder") {
                     // Add codeplex count
-                    count += 883;   // Updated 2015-04-01
+                    count += 868;   // Updated 2015-04-15
                 }
                 $("#" + totalcount).text(" (" + count + ")");
             }
@@ -149,7 +149,7 @@ UpdateTotalDownloads = function (totalcount) {
     });
 };
 
-UpdateHistoricDownloads = function (histcount, callback) {
+UpdateHistoricDownloads = function (histcount, callback, includedate) {
     $("#" + histcount).text("");
     $.ajax({
         url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/releases',
@@ -158,14 +158,21 @@ UpdateHistoricDownloads = function (histcount, callback) {
                 var counttext = "<br />";
                 $(data).each(function (index) {
                     var tag = this.tag_name;
+                    var date = new Date(this.published_at);
+                    if (includedate) {
+                        date = " (" + date.toFormattedString('yyyy-mm-dd') + ")";
+                    }
+                    else {
+                        date = "";
+                    }
                     var count = 0;
                     $(this.assets).each(function (index2) {
                         count += this.download_count;
                     });
-                    counttext += tag + ": <strong>" + count.padLeft(3, '&nbsp;') + "</strong><br/>";
+                    counttext += tag + ": <strong>" + count.padLeft(3, '&nbsp;') + "</strong>" + date + "<br/>";
                 });
                 if (GH_REPO == "FetchXMLBuilder") {
-                    counttext += GetCodePlexDownloads();
+                    counttext += GetCodePlexDownloads(includedate);
                 }
                 counttext += "";
                 $("#" + histcount).html(counttext);
@@ -177,18 +184,18 @@ UpdateHistoricDownloads = function (histcount, callback) {
     });
 };
 
-GetCodePlexDownloads = function () {       // Updated 2015-04-01
-    var template = "{tag}: <strong>{count}</strong><br/>";
+GetCodePlexDownloads = function (includedate) {       // Updated 2015-04-15
+    var template = "{tag}: <strong>{count}</strong> {date}<br/>";
     var cp = "<i>&nbsp;-at codeplex-<br/>";
-    cp += template.replace("{tag}", "1.2015.1.10").replace("{count}", (381).padLeft(3, '&nbsp;'));
-    cp += template.replace("{tag}", "1.2015.1.9 ").replace("{count}", (46).padLeft(3, '&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.12.8").replace("{count}", (128).padLeft(3, '&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.12.7").replace("{count}", (47).padLeft(3, '&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.12.6").replace("{count}", (58).padLeft(3, '&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.12.5").replace("{count}", (76).padLeft(3, '&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.11.4").replace("{count}", (45).padLeft(3, '&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.11.3").replace("{count}", (23).padLeft(3, '&nbsp;'));
-    cp += template.replace("{tag}", "1.2014.11.2").replace("{count}", (56).padLeft(3, '&nbsp;'));
+    cp += template.replace("{tag}", "1.2015.1.10").replace("{count}", (389).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2015-01-26)" : "");
+    cp += template.replace("{tag}", "1.2015.1.9 ").replace("{count}", (46).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2015-01-20)" : "");
+    cp += template.replace("{tag}", "1.2014.12.8").replace("{count}", (128).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2014-12-30)" : "");
+    cp += template.replace("{tag}", "1.2014.12.7").replace("{count}", (47).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2014-12-18)" : "");
+    cp += template.replace("{tag}", "1.2014.12.6").replace("{count}", (58).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2014-12-05)" : "");
+    cp += template.replace("{tag}", "1.2014.12.5").replace("{count}", (76).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2014-12-01)" : "");
+    cp += template.replace("{tag}", "1.2014.11.4").replace("{count}", (45).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2014-11-25)" : "");
+    cp += template.replace("{tag}", "1.2014.11.3").replace("{count}", (23).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2014-11-24)" : "");
+    cp += template.replace("{tag}", "1.2014.11.2").replace("{count}", (56).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2014-11-21)" : "");
     cp += "</i>";
     return cp;
 };

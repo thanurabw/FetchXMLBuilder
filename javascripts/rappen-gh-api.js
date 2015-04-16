@@ -127,6 +127,22 @@ GetLatestDownloadLink = function () {
     return url;
 };
 
+GetLatestVersion = function () {
+    var version = "";
+    $.ajax({
+        async: false,
+        url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/releases/latest',
+        success: function (data) {
+            if (data) {
+                version = data.tag_name;
+            }
+        },
+        error: function (xhr, options, error) {
+        }
+    });
+    return version;
+};
+
 UpdateTotalDownloads = function (totalcount) {
     $("#" + totalcount).text("");
     $.ajax({

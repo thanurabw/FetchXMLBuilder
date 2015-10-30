@@ -171,9 +171,9 @@ UpdateHistoricDownloads = function (histcount, callback, includedate) {
         url: 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/releases',
         success: function (data) {
             if (data && data.length > 0) {
-                var counttext = "<u>Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Count&nbsp;&nbsp;Released</u><br />";
+                var counttext = "<u>Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Count&nbsp;&nbsp;Released</u><br />";
                 $(data).each(function (index) {
-                    var tag = this.tag_name;
+                    var tag = this.tag_name.padRight(13);
                     var date = new Date(this.published_at);
                     if (includedate) {
                         date = "&nbsp;&nbsp;" + date.toFormattedString('yyyy-mm-dd');
@@ -203,7 +203,8 @@ UpdateHistoricDownloads = function (histcount, callback, includedate) {
 GetCodePlexDownloads = function (includedate) {       // Updated 2015-04-15
     var template = "{tag}&nbsp;&nbsp;<strong>{count}</strong>&nbsp;&nbsp;{date}<br/>";
     var cp = "<i>&nbsp;-at codeplex-<br/>";
-    cp += template.replace("{tag}", "9 versions&nbsp;").replace("{count}", (1010).padLeft(4, '&nbsp;')).replace("{date}", includedate ? "2014-11-21" : "");
+    var ver = "9 versions&nbsp;&nbsp;&nbsp;";
+    cp += template.replace("{tag}", ver).replace("{count}", (1010).padLeft(4, '&nbsp;')).replace("{date}", includedate ? "2014-11-21" : "");
     //cp += template.replace("{tag}", "1.2015.1.10").replace("{count}", (389).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2015-01-26)" : "");
     //cp += template.replace("{tag}", "1.2015.1.9 ").replace("{count}", (46).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2015-01-20)" : "");
     //cp += template.replace("{tag}", "1.2014.12.8").replace("{count}", (128).padLeft(3, '&nbsp;')).replace("{date}", includedate ? "(2014-12-30)" : "");
@@ -334,4 +335,8 @@ Date.prototype.toFormattedString = function (format) {
 
 Number.prototype.padLeft = function (n, str) {
     return Array(n - String(this).length + 1).join(str || '0') + this;
+};
+
+String.prototype.padRight = function (n, str) {
+	return this + Array(n - this.length + 1).join(str || '&nbsp;');
 };

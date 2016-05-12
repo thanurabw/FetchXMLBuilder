@@ -9,6 +9,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <!--    <script type="text/javascript" src="javascripts/showdown.js"></script>-->
     <script type="text/javascript" src="javascripts/rappen-gh-api.js"></script>
+    <script type="text/javascript" src="javascripts/rappen-repo-counter.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -16,6 +17,12 @@
     <script>
         var GH_USER = "Cinteros";
         var GH_REPO = "FetchXMLBuilder";
+        var NUGET_PACKAGE = "Cinteros.Xrm.FetchXMLBuilder";
+        var nugetInfo = null;
+        var githubInfo = null;
+        var nugetLoading = false;
+        var githubLoading = false;
+        var versionInfo = null;
 
         var releasenotesshowing = false;
         var releasenotesloaded = false;
@@ -30,8 +37,86 @@
         });
 
         UpdateRelease = function () {
-            UpdateDownloads("latest-version", "latest-published", "latest-downloads", "release-link");
-            UpdateTotalDownloads("total-downloads");
+            if (!nugetLoading) {
+                nugetLoading = true;
+                NugetGetDetails(NUGET_PACKAGE, NuGetInfoRetrieved);
+            }
+        }
+
+        NuGetInfoRetrieved = function (info) {
+            nugetInfo = info;
+            if (githubInfo) {
+                var details = CombineDetails(nugetInfo, githubInfo);
+                PrintVersionInfo(details);
+            }
+            else if (!githubLoading) {
+                githubLoading = true;
+                GitHubGetDetails(GH_USER, GH_REPO, GitHubInfoRetrieved);
+            }
+            nugetLoading = false;
+        }
+
+        GitHubInfoRetrieved = function (info) {
+            githubInfo = info;
+            if (nugetInfo) {
+                versionInfo = CombineDetails(nugetInfo, githubInfo);
+                PrintVersionInfo(versionInfo);
+            }
+            githubLoading = false;
+        }
+
+        PrintVersionInfo = function (info) {
+            $("#latest-version").text(info.latestVersion.version);
+            $("#latest-downloads").text(info.latestVersion.downloads);
+            $("#total-downloads").text(" (" + info.totalDownloads + ")");
+            var date = info.latestVersion.published;
+            if (!date) {
+                $(info.versions).each(function (index) {
+                    if (!date && this.published) {
+                        date = this.published;
+                    }
+                });
+            }
+            if (date) {
+                $("#latest-published").text(date.toFormattedString('yyyy-mm-dd'));
+            }
+            else {
+                $("#latest-published").text("Not available");
+            }
+        }
+
+        PrintHistoryInfo = function (info, callback) {
+            var counttext = "<u>Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Count&nbsp;&nbsp;Released</u><br />";
+            $(info.versions).each(function (index) {
+                var link = "";
+                if (this.url) {
+                    link = this.url;
+                }
+                else if (this.host == "NuGet") {
+                    link = 'http://nuget.org/packages/' + NUGET_PACKAGE + '/' + this.version;
+                }
+                var tag = this.version.padRight(13);
+                if (link) {
+                    tag = '<a href="' + link + '" target=_"blank" alt="' + this.host + '">' + tag + '</a>';
+                }
+                if (this.published) {
+                    var date = new Date(this.published);
+                    date = "&nbsp;&nbsp;" + date.toFormattedString('yyyy-mm-dd ');
+                }
+                else {
+                    date = "&nbsp;&nbsp;<em>" + this.host + "</em>";
+                }
+                var count = this.downloads;
+                counttext += tag + " <strong>" + count.padLeft(5, '&nbsp;') + "</strong>" + date + "<br/>";
+            });
+            if (GH_REPO == "FetchXMLBuilder") {
+                counttext += GetCodePlexDownloads(true);
+            }
+            counttext += "";
+            $("#hist-downloads").html(counttext);
+            if (callback) {
+                callback();
+            }
         }
 
         ShowHideReleaseNotes = function () {
@@ -65,8 +150,8 @@
                 if (!historyloaded) {
                     $("#showhide-hist").text("loading");
                     $("#hist-downloads").hide(0);
-                    UpdateHistoricDownloads("hist-downloads", ShowHideDownloadHistory, true);
                     historyloaded = true;
+                    PrintHistoryInfo(versionInfo, ShowHideDownloadHistory);
                 }
                 else {
                     $("#hist-downloads").show(100);
@@ -93,13 +178,20 @@
             </p>
 
             <table border="0">
-                <tr>
+                <!--<tr>
                     <th class="download" colspan="2">
                         <h2><a id="latest-download"><span>Download</span></a></h2>
                         <a id="release-link" target="_blank">Release notes</a>
                         |
                         <a href="https://github.com/Cinteros/FetchXMLBuilder/releases" target="_blank">View All Releases</a>
                     </th>
+                </tr>-->
+                <tr>
+                    <td colspan="2" style="padding-top:30px;padding-bottom:30px">
+                        From the April 2016 release of XrmToolBox, download of plugins is handled in the built-in Plugin Store.<br />
+                        Run <a href="http://www.xrmtoolbox.com">XrmToolBox</a> and open the Plugin Store to get the latest version of FetchXML Builder!<br />
+                        Older versions can be downloaded by expanding the Downloads below.
+                    </td>
                 </tr>
                 <tr>
                     <th colspan="2" style="padding-top:10px;">

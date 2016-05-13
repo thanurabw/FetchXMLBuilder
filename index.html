@@ -38,8 +38,18 @@
 
         UpdateRelease = function () {
             if (!nugetLoading) {
+                nugetInfo = null;
+                githubInfo = null;
                 nugetLoading = true;
-                NugetGetDetails(NUGET_PACKAGE, NuGetInfoRetrieved);
+                $("#latest-version").text("Loading stats...");
+                $("#latest-published").text("...from NuGet");
+                $("#latest-downloads").text("");
+                $("#total-downloads").text("");
+                $("#hist-downloads").text("");
+                $("#showhide-hist").text("+");
+                historyshowing = false;
+                historyloaded = false;
+                NugetGetDetails(NUGET_PACKAGE, NuGetInfoRetrieved, InfoLoadError);
             }
         }
 
@@ -51,7 +61,9 @@
             }
             else if (!githubLoading) {
                 githubLoading = true;
-                GitHubGetDetails(GH_USER, GH_REPO, GitHubInfoRetrieved);
+                $("#latest-version").text("Loading stats...");
+                $("#latest-published").text("...from GitHub");
+                GitHubGetDetails(GH_USER, GH_REPO, GitHubInfoRetrieved, InfoLoadError);
             }
             nugetLoading = false;
         }
@@ -63,6 +75,10 @@
                 PrintVersionInfo(versionInfo);
             }
             githubLoading = false;
+        }
+
+        InfoLoadError = function (xhr, options, error) {
+            $("#latest-downloads").text("Error: " + error);
         }
 
         PrintVersionInfo = function (info) {

@@ -79,15 +79,23 @@ GitHubGetDetails = function (user, repo, successCallback, errorCallback) {
     });
 };
 
-CombineDetails = function (info1, info2) {
+CombineDetails = function (info1, info2, mergeVersions) {
     var result = info1;
     result.totalDownloads += info2.totalDownloads;
-    if (info1.host == "GitHub" && info2.host == "NuGet") {
-        result.versions = info2.versions.concat(info1.versions);
-    } else {
-        result.versions = info1.versions.concat(info2.versions);
-    }
-    result.versions.sort(dynamicSort("-version"));
+    var versions = info1.versions.concat(info2.versions);
+    versions.sort(dynamicSortMultiple("-version", "-host"));
+    var lastVersion = "";
+    result.versions = [];
+    $(versions).each(function (i) {
+        if (this.version != lastVersion || !!!mergeVersions) {
+            result.versions.push(this);
+        }
+        else {
+            result.versions[result.versions.length - 1].downloads += this.downloads;
+        }
+        lastVersion = this.version;
+    });
+    result.latestVersion = null;
     $(result.versions).each(function (i) {
         if (!result.latestVersion || this.version > result.latestVersion.version) {
             result.latestVersion = this;
@@ -106,6 +114,26 @@ var dynamicSort = function (property) {
     return function (a, b) {
         var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
         return result * sortOrder;
+    }
+}
+
+var dynamicSortMultiple = function () {
+    /*
+     * save the arguments object as it will be overwritten
+     * note that arguments object is an array-like object
+     * consisting of the names of the properties to sort by
+     */
+    var props = arguments;
+    return function (obj1, obj2) {
+        var i = 0, result = 0, numberOfProperties = props.length;
+        /* try getting a different result from 0 (equal)
+         * as long as we have extra properties to compare
+         */
+        while (result === 0 && i < numberOfProperties) {
+            result = dynamicSort(props[i])(obj1, obj2);
+            i++;
+        }
+        return result;
     }
 }
 

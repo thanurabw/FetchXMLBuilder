@@ -56,7 +56,7 @@
         NuGetInfoRetrieved = function (info) {
             nugetInfo = info;
             if (githubInfo) {
-                var details = CombineDetails(nugetInfo, githubInfo);
+                var details = CombineDetails(nugetInfo, githubInfo, true);
                 PrintVersionInfo(details);
             }
             else if (!githubLoading) {
@@ -71,7 +71,7 @@
         GitHubInfoRetrieved = function (info) {
             githubInfo = info;
             if (nugetInfo) {
-                versionInfo = CombineDetails(nugetInfo, githubInfo);
+                versionInfo = CombineDetails(nugetInfo, githubInfo, true);
                 PrintVersionInfo(versionInfo);
             }
             githubLoading = false;

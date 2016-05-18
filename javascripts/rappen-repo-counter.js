@@ -1,8 +1,9 @@
 var RAPPEN_NUGET_API_QUERY = 'https://api-v3search-0.nuget.org/query?q=id:{package}';
 var RAPPEN_NUGET_API_DETAIL = 'http://api.nuget.org/v3/registration1/{package}/index.json';
+var RAPPEN_NUGET_API_v2v3 = 'https://api-v2v3search-0.nuget.org/query?q=id:{package}';
 
 NuGetGetApiUrl = function (package) {
-    var apiurl = RAPPEN_NUGET_API_QUERY.replace("{package}", NUGET_PACKAGE).toLowerCase();
+    var apiurl = RAPPEN_NUGET_API_v2v3.replace("{package}", NUGET_PACKAGE).toLowerCase();
     return apiurl;
 };
 
@@ -26,6 +27,24 @@ NugetGetDetails = function (packageName, successCallback, errorCallback) {
                 }
             }
             successCallback(result);
+        },
+        error: function (xhr, options, error) {
+            console.dir(xhr);
+            console.log("XHR: " + xhr.toString());
+            console.log("OPT: " + options);
+            console.log("ERR: " + error);
+            errorCallback(xhr, options, error);
+        }
+    });
+};
+
+NugetGetJson = function (url, successCallback, errorCallback) {
+    $.ajax({
+        url: url,
+        crossDomain: true,
+        dataType: 'jsonp',
+        success: function (data) {
+            successCallback(data);
         },
         error: function (xhr, options, error) {
             console.dir(xhr);

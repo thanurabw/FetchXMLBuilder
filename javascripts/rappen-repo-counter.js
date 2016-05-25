@@ -11,7 +11,6 @@ NugetGetDetails = function (packageName, successCallback, errorCallback) {
     $.ajax({
         url: NuGetGetApiUrl(packageName),
         crossDomain: true,
-        dataType: 'jsonp',
         success: function (data) {
             if (data && data.data && data.data.length > 0) {
                 var result = data.data[0];
@@ -22,6 +21,21 @@ NugetGetDetails = function (packageName, successCallback, errorCallback) {
                         this.host = "NuGet";
                         if (this.version == version) {
                             result.latestVersion = this;
+                        }
+                        var id = this['@id'];
+                        if (id) {
+                            var date = null;
+                            $.ajax({
+                                url: id,
+                                async: false,
+                                success: function (data) {
+                                    date = data.published;
+                                },
+                                error: function (x, o, e) {
+
+                                }
+                            });
+                            this.published = date;
                         }
                     });
                 }

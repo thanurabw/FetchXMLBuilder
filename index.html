@@ -4,12 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>FetchXML Builder for XrmToolBox</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <!--    <script type="text/javascript" src="javascripts/showdown.js"></script>-->
     <script type="text/javascript" src="javascripts/rappen-gh-api.js"></script>
     <script type="text/javascript" src="javascripts/rappen-repo-counter.js"></script>
+
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -181,208 +187,203 @@
 </head>
 <body>
     <div class="wrapper">
-        <header>
-            <h1 onclick="window.location = 'http://fxb.xrmtoolbox.com';" style="cursor:pointer;">
-                <img src="images/FXB-100.png" width="100" height="100" /><br />
-                FetchXML&nbsp;Builder
-            </h1>
-            <p>
-                <a href="http://www.xrmtoolbox.com">XrmToolBox</a>
-                plugin to create and run advanced FetchXML queries.
-            </p>
-            <p align="right">
-                <i>by Jonas Rapp, Cinteros AB</i>
-            </p>
-
-            <table border="0">
-                <!--<tr>
-                    <th class="download" colspan="2">
-                        <h2><a id="latest-download"><span>Download</span></a></h2>
-                        <a id="release-link" target="_blank">Release notes</a>
-                        |
-                        <a href="https://github.com/Cinteros/FetchXMLBuilder/releases" target="_blank">View All Releases</a>
-                    </th>
-                </tr>-->
-                <tr>
-                    <td colspan="2" style="padding-top:30px;padding-bottom:30px">
-                        From the April 2016 release of XrmToolBox, download of plugins is handled in the built-in Plugin Store.<br />
-                        Run <a href="http://www.xrmtoolbox.com">XrmToolBox</a> and open the Plugin Store to get the latest version of FetchXML Builder!<br />
-                        Older versions can be downloaded by expanding the Downloads below.
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2" style="padding-top:10px;">
-                        Latest release
-                        &nbsp;&nbsp;
-                        <a href="https://github.com/Cinteros/FetchXMLBuilder/releases" target="_blank"><img src="images/open.png" /></a>
-                    </th>
-                </tr>
-                <tr>
-                    <td>Version</td>
-                    <td id="latest-version">Loading version...</td>
-                </tr>
-                <tr>
-                    <td>Publish date</td>
-                    <td id="latest-published">Loading publish date...</td>
-                </tr>
-                <tr>
-                    <td valign="top" style="border-bottom:0px;">
-                        Downloads (total)
-                        &nbsp;&nbsp;
-                        <a href="javascript:ShowHideDownloadHistory();" id="showhide-hist" title="Show download count by version">+</a>
-                    </td>
-                    <td valign="top" style="border-bottom:0px;">
-                        <span id="latest-downloads">Loading download count...</span>
-                        <span id="total-downloads"></span>
-                        <span><a href="javascript:UpdateRelease();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="border-top:0px; padding:0 0 0 50px;">
-                        <span id="hist-downloads" style="font-size:12px; line-height:0.9; font-family:'Courier'"></span>
-                    </td>
-                </tr>
-                <!--<tr>
-                    <td valign="top">
-                        <strong>Release Notes&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-                        <a href="javascript:ShowHideReleaseNotes();" id="showhide-releasenotes">Show</a>
-                    </td>
-                    <td colspan="2"><div id="release-notes"></div></td>
-                </tr>-->
-                <tr>
-                    <th colspan="2" style="padding-top:10px;">
-                        Issues
-                        &nbsp;&nbsp;
-                        <a href="https://github.com/Cinteros/FetchXMLBuilder/issues" target="_blank"><img src="images/open.png" /></a>
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        Open
-                    </td>
-                    <td>
-                        <span id="issues-open"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Total
-                    </td>
-                    <td>
-                        <span id="issues-total"></span>
-                    </td>
-                </tr>
-            </table>
-
-        </header>
-        <section>
-            <h3>
-                <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction
-            </h3>
-            <p>
-                <i>
-                    The primary goal of the tool is to give developers, customizers and administrators of Microsoft Dynamics CRM an easy to use tool to create queries for views, reports and code.
-                    <br />
-                    This includes the possibility to execute the queries to verify the results in various formats.
-                </i>
-            </p>
-            <h3>
-                <a id="info" class="anchor" href="#info" aria-hidden="true"><span class="octicon octicon-link"></span></a>Information sources
-            </h3>
-            <p>
-                <a href="http://jonasrapp.cinteros.se/p/fxb.html" target="_blank">Learn</a> from the Introduction to FXB</a> on my blog <em>Jonas Rapp's CRM trenches</em>.<br />
-                <a href="watch">Watch</a> FXB on GitHub to recieve notifications on new releases and updates.<br />
-                <!--<strong><u><a href="wiki">Read</a></u></strong> information and screen shots in the wiki.<br />-->
-                <a href="#disqus">Discuss</a> if you have feedback, questions or just want to talk FXB.<br />
-                <a href="issues">Submit</a> issues for bugs and improvements in the issues section.
-            </p>
-            <h3>
-                <a id="project" class="anchor" href="#project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project description
-            </h3>
-            <p>
-                The tool will assist in three major areas:
-            </p>
-            <p>
-                <strong>1.</strong> Constructing FetchXML in ways that Advanced Find cannot
-                <ul>
-                    <li>aggregates</li>
-                    <li>outer joins</li>
-                    <li>"has no"-queries</li>
-                    <li>attributes from multi-level linked entities</li>
-                </ul>
-            </p>
-            <p>
-                <strong>2.</strong> Querying CRM for information not (easily) found in the CRM UI
-                <ul>
-                    <li>system / internal entities</li>
-                    <li>attributes hidden in CRM UI</li>
-                    <li>join on other fields than relationships</li>
-                </ul>
-            </p>
-            <p>
-                <strong>3.</strong> Developer assistance
-                <ul>
-                    <li>Generate C# QueryExpression code from fetch xml</li>
-                    <li>Generate OData query string from fetch xml</li>
-                    <li>Easy to use UI to compose queries for reports in CRM</li>
-                </ul>
-            </p>
-            <p>
-                The tool reads metadata from CRM to assist with selecting entities, attributes, relations and to perform validation of condition values.
-            </p>
-            <p>
-                To make it more appealing, there is also the possibility to have it show "Friendly names", which will replace the technical names of entities and attributes with their display names in the users' currently selected language, much like Advanced Find does.
-            </p>
-            <h3>
-                <a id="gitter" class="anchor" href="#gitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Discussion
-            </h3>
-            <p>Click <strong>OPEN CHAT</strong> in the bottom right corner of this web page to ask questions, give feedback, or simply to join the discussion!</p>
-            <div id="gitter_sidecar">
-                <script>
-                    ((window.gitter = {}).chat = {}).options = {
-                        room: 'Cinteros/FetchXMLBuilder'
-                    };
-                </script>
-                <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-lg-3">
+                <h1 onclick="window.location = 'http://fxb.xrmtoolbox.com';" style="cursor:pointer;">
+                    <img src="images/FXB-100.png" width="100" height="100" /><br />
+                    FetchXML&nbsp;Builder
+                </h1>
+                <p>
+                    <a href="http://www.xrmtoolbox.com">XrmToolBox</a>
+                    plugin to create and run advanced FetchXML queries.
+                </p>
+                <p align="right">
+                    <i>by Jonas Rapp, Cinteros AB</i>
+                </p>
+                <hr />
             </div>
-            <h3>
-                <a id="cinteros" class="anchor" href="#cinteros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other plugins from Cinteros
-            </h3>
-            <p>
-                Me and some other colleagues at <strong>Cinteros</strong> have developed a few other cool plugins for XrmToolBox.<br />
-                Have a look at these here: <a href="http://cinteros.xrmtoolbox.com">http://cinteros.xrmtoolbox.com</a>.
-            </p>
-            <hr />
-            <!-- The following link was http://info.flagcounter.com/b2js but changed by me -->
-            <a href="http://statcounter.com/p10300908/visitor_map/?&perpage=200" target="_blank"><img src="http://s09.flagcounter.com/count/b2js/bg_FFFFFF/txt_000000/border_D4D4D4/columns_5/maxflags_250/viewers_FXB+fan+base/labels_1/pageviews_0/flags_0/" alt="Flag Counter" border="0"></a>
-            <!-- Moved down to the botton while waiting for some stats to build up-->
-            <script>
-                (function (i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-                ga('create', 'UA-41153925-5', 'auto');
-                ga('send', 'pageview');
-            </script>
-            <br />
-            Unique visitor count since 2015-02-19:
-            <!-- Start of StatCounter Code for Default Guide -->
-            <a href="http://statcounter.com/p10300908/summary/" target="_blank">
-                <script type="text/javascript">
-                    var sc_project = 10300908;
-                    var sc_invisible = 0;
-                    var sc_security = "d1d1a604";
-                    var sc_text = 5;
-                    var sc_https = 1;
-                    var scJsHost = (("https:" == document.location.protocol) ? "https://secure." : "http://www.");
-                    document.write("<sc" + "ript type='text/javascript' src='" + scJsHost + "statcounter.com/counter/counter.js'></" + "script>");
+            <div class="col-xs-12 col-sm-8 col-lg-6">
+                <h3>
+                    <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction
+                </h3>
+                <p>
+                    <i>
+                        The primary goal of the tool is to give developers, customizers and administrators of Microsoft Dynamics CRM an easy to use tool to create queries for views, reports and code.
+                        <br />
+                        This includes the possibility to execute the queries to verify the results in various formats.
+                    </i>
+                </p>
+                <h3>
+                    <a id="info" class="anchor" href="#info" aria-hidden="true"><span class="octicon octicon-link"></span></a>Information sources
+                </h3>
+                <p>
+                    <a href="http://jonasrapp.cinteros.se/p/fxb.html" target="_blank">Learn</a> from the Introduction to FXB</a> on my blog <em>Jonas Rapp's CRM trenches</em>.<br />
+                    <a href="watch">Watch</a> FXB on GitHub to recieve notifications on new releases and updates.<br />
+                    <!--<strong><u><a href="wiki">Read</a></u></strong> information and screen shots in the wiki.<br />-->
+                    <a href="#disqus">Discuss</a> if you have feedback, questions or just want to talk FXB.<br />
+                    <a href="issues">Submit</a> issues for bugs and improvements in the issues section.
+                </p>
+                <h3>
+                    <a id="project" class="anchor" href="#project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project description
+                </h3>
+                <p>
+                    The tool will assist in three major areas:
+                </p>
+                <p>
+                    <strong>1.</strong> Constructing FetchXML in ways that Advanced Find cannot
+                    <ul>
+                        <li>aggregates</li>
+                        <li>outer joins</li>
+                        <li>"has no"-queries</li>
+                        <li>attributes from multi-level linked entities</li>
+                    </ul>
+                </p>
+                <p>
+                    <strong>2.</strong> Querying CRM for information not (easily) found in the CRM UI
+                    <ul>
+                        <li>system / internal entities</li>
+                        <li>attributes hidden in CRM UI</li>
+                        <li>join on other fields than relationships</li>
+                    </ul>
+                </p>
+                <p>
+                    <strong>3.</strong> Developer assistance
+                    <ul>
+                        <li>Generate C# QueryExpression code from fetch xml</li>
+                        <li>Generate OData query string from fetch xml</li>
+                        <li>Easy to use UI to compose queries for reports in CRM</li>
+                    </ul>
+                </p>
+                <p>
+                    The tool reads metadata from CRM to assist with selecting entities, attributes, relations and to perform validation of condition values.
+                </p>
+                <p>
+                    To make it more appealing, there is also the possibility to have it show "Friendly names", which will replace the technical names of entities and attributes with their display names in the users' currently selected language, much like Advanced Find does.
+                </p>
+                <h3>
+                    <a id="gitter" class="anchor" href="#gitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Discussion
+                </h3>
+                <p>Click <strong>OPEN CHAT</strong> in the bottom right corner of this web page to ask questions, give feedback, or simply to join the discussion!</p>
+                <div id="gitter_sidecar">
+                    <script>
+                        ((window.gitter = {}).chat = {}).options = {
+                            room: 'Cinteros/FetchXMLBuilder'
+                        };
+                    </script>
+                    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+                </div>
+                <h3>
+                    <a id="cinteros" class="anchor" href="#cinteros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other plugins from Cinteros
+                </h3>
+                <p>
+                    Me and some other colleagues at <strong>Cinteros</strong> have developed a few other cool plugins for XrmToolBox.<br />
+                    Have a look at these here: <a href="http://cinteros.xrmtoolbox.com">http://cinteros.xrmtoolbox.com</a>.
+                </p>
+                <hr />
+                <!-- The following link was http://info.flagcounter.com/b2js but changed by me -->
+                <a href="http://statcounter.com/p10300908/visitor_map/?&perpage=200" target="_blank"><img src="http://s09.flagcounter.com/count/b2js/bg_FFFFFF/txt_000000/border_D4D4D4/columns_5/maxflags_250/viewers_FXB+fan+base/labels_1/pageviews_0/flags_0/" alt="Flag Counter" border="0"></a>
+                <!-- Moved down to the botton while waiting for some stats to build up-->
+                <script>
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                    ga('create', 'UA-41153925-5', 'auto');
+                    ga('send', 'pageview');
                 </script>
-            </a>
-            <!-- End of StatCounter Code for Default Guide -->
+                <br />
+                Unique visitor count since 2015-02-19:
+                <!-- Start of StatCounter Code for Default Guide -->
+                <a href="http://statcounter.com/p10300908/summary/" target="_blank">
+                    <script type="text/javascript">
+                        var sc_project = 10300908;
+                        var sc_invisible = 0;
+                        var sc_security = "d1d1a604";
+                        var sc_text = 5;
+                        var sc_https = 1;
+                        var scJsHost = (("https:" == document.location.protocol) ? "https://secure." : "http://www.");
+                        document.write("<sc" + "ript type='text/javascript' src='" + scJsHost + "statcounter.com/counter/counter.js'></" + "script>");
+                    </script>
+                </a>
+                <!-- End of StatCounter Code for Default Guide -->
 
-        </section>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-3">
+                <div>
+                    <hr />
+                    From the April 2016 release of XrmToolBox, download of plugins is handled in the built-in Plugin Store.<br />
+
+                    Run <a href="http://www.xrmtoolbox.com">XrmToolBox</a> and open the Plugin Store to get the latest version of FetchXML Builder!<br />
+                    Older versions can be downloaded by expanding the Downloads below.<br /><br />
+                </div>
+                <table border="0">
+                    <tr>
+                        <th colspan="2" style="padding-top:10px;">
+                            Latest release
+                            &nbsp;&nbsp;
+                            <a href="https://github.com/Cinteros/FetchXMLBuilder/releases" target="_blank"><img src="images/open.png" /></a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Version</td>
+                        <td id="latest-version">Loading version...</td>
+                    </tr>
+                    <tr>
+                        <td>Publish date</td>
+                        <td id="latest-published">Loading publish date...</td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="border-bottom:0px;">
+                            Downloads (total)
+                            &nbsp;&nbsp;
+                            <a href="javascript:ShowHideDownloadHistory();" id="showhide-hist" title="Show download count by version">+</a>
+                        </td>
+                        <td valign="top" style="border-bottom:0px;">
+                            <span id="latest-downloads">Loading download count...</span>
+                            <span id="total-downloads"></span>
+                            <span><a href="javascript:UpdateRelease();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-top:0px; padding:0 0 0 50px;">
+                            <span id="hist-downloads" style="font-size:12px; line-height:0.9; font-family:'Courier'"></span>
+                        </td>
+                    </tr>
+                    <!--<tr>
+                        <td valign="top">
+                            <strong>Release Notes&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                            <a href="javascript:ShowHideReleaseNotes();" id="showhide-releasenotes">Show</a>
+                        </td>
+                        <td colspan="2"><div id="release-notes"></div></td>
+                    </tr>-->
+                    <tr>
+                        <th colspan="2" style="padding-top:10px;">
+                            Issues
+                            &nbsp;&nbsp;
+                            <a href="https://github.com/Cinteros/FetchXMLBuilder/issues" target="_blank"><img src="images/open.png" /></a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Open
+                        </td>
+                        <td>
+                            <span id="issues-open"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total
+                        </td>
+                        <td>
+                            <span id="issues-total"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <footer>
             <p>
                 <iframe src="https://ghbtns.com/github-btn.html?user=Cinteros&repo=FetchXMLBuilder&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>

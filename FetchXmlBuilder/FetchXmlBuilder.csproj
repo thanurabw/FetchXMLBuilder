@@ -171,6 +171,12 @@
     <Compile Include="Controls\commentControl.Designer.cs">
       <DependentUpon>commentControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ControlBase.designer.cs">
+      <DependentUpon>ControlBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\orderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -298,6 +304,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controls\commentControl.resx">
       <DependentUpon>commentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ControlBase.resx">
+      <DependentUpon>ControlBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\orderControl.resx">
       <DependentUpon>orderControl.cs</DependentUpon>

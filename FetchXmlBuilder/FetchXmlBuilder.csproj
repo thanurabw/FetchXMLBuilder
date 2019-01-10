@@ -130,6 +130,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppCode\FlowConditionGenerator.cs" />
     <Compile Include="AppCode\XTBAppInsights.cs" />
     <Compile Include="AppCode\AttributeItem.cs" />
     <Compile Include="AppCode\CodeGeneratorBase.cs" />
@@ -203,6 +204,12 @@
     </Compile>
     <Compile Include="Controls\fetchControl.Designer.cs">
       <DependentUpon>fetchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockControls\FlowController.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockControls\FlowController.designer.cs">
+      <DependentUpon>FlowController.cs</DependentUpon>
     </Compile>
     <Compile Include="DockControls\ODataControl.cs">
       <SubType>Form</SubType>
@@ -308,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\fetchControl.resx">
       <DependentUpon>fetchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockControls\FlowController.resx">
+      <DependentUpon>FlowController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DockControls\ODataControl.resx">
       <DependentUpon>ODataControl.cs</DependentUpon>

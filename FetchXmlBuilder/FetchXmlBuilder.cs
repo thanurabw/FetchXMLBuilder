@@ -56,6 +56,7 @@ namespace Cinteros.Xrm.FetchXmlBuilder
         private XmlContentControl dockControlFetchXmlJs;
         private ResultGrid dockControlGrid;
         private ODataControl dockControlOData;
+        private FlowController dockControlFlow;
         private XmlContentControl dockControlQExp;
         private XmlContentControl dockControlSQL;
         private Entity dynml;
@@ -247,6 +248,7 @@ namespace Cinteros.Xrm.FetchXmlBuilder
             dockControlOData?.Close();
             dockControlQExp?.Close();
             dockControlSQL?.Close();
+            dockControlFlow?.Close();
             SaveSetting();
             LogUse("Close");
         }
@@ -584,6 +586,24 @@ namespace Cinteros.Xrm.FetchXmlBuilder
             }
         }
 
+        internal string GetFlowConditions(string stepToApplyCondition = "triggerBody()")
+        {
+            try
+            {
+                if (Service == null || ConnectionDetail == null || ConnectionDetail.OrganizationDataServiceUrl == null)
+                {
+                    throw new Exception("Must have an active connection to CRM to compose Flow conditions.");
+                }
+                FetchType fetch = dockControlBuilder.GetFetchType();
+                var flowConditions = FlowConditionGenerator.GetFlowCondition(fetch, ConnectionDetail.OrganizationDataServiceUrl, this);
+                return flowConditions;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         internal void LiveXML_KeyUp(object sender, KeyEventArgs e)
         {
             if (dockControlFetchXml != null && dockControlFetchXml.chkLiveUpdate.Checked &&
@@ -774,8 +794,15 @@ namespace Cinteros.Xrm.FetchXmlBuilder
             {
                 dockControlFetchXmlJs.UpdateXML(GetJavaScriptCode());
             }
+            if (dockControlFlow?.Visible == true && entities != null)
+            {
+                dockControlFlow.DisplayFlowConditions(GetFlowConditions());
+            }
         }
-
+        internal string GetFlowStep()
+        {
+            return dockControlFlow.GetStepToApplyConditions();
+        }
         #endregion Internal Methods
 
         #region Private Methods
@@ -1754,6 +1781,21 @@ namespace Cinteros.Xrm.FetchXmlBuilder
             UpdateLiveXML();
         }
 
+        private void ShowFlowControl()
+        {
+            LogUse("Show-FlowControl");
+            if (dockControlFlow?.IsDisposed != false)
+            {
+                dockControlFlow = new FlowController(this);
+                dockControlFlow.Show(dockContainer, DockState.DockBottom);
+            }
+            else
+            {
+                dockControlFlow.EnsureVisible(dockContainer, DockState.DockBottom);
+            }
+            UpdateLiveXML();
+        }
+
         private void ShowResultControl(string content, ContentType contenttype, SaveFormat save, DockState defaultstate)
         {
             if (content.Length > 100000 &&
@@ -1996,6 +2038,11 @@ namespace Cinteros.Xrm.FetchXmlBuilder
         private void tsmiShowOData_Click(object sender, EventArgs e)
         {
             ShowOData20Control();
+        }
+
+        private void tsmiShowFlowGenerator_Click(object sender, EventArgs e)
+        {
+            ShowFlowControl();
         }
 
         private void tsmiShowQueryExpression_Click(object sender, EventArgs e)
